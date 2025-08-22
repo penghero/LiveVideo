@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		23916D762E65E7BA863C2FD8 /* Pods_LiveVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 896AD78904176C4336610FA7 /* Pods_LiveVideo.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		FFD85EAC2D62CD9800773449 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5DABC27BED7933A6BFA65546 /* Pods-LiveVideo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveVideo.debug.xcconfig"; path = "Target Support Files/Pods-LiveVideo/Pods-LiveVideo.debug.xcconfig"; sourceTree = "<group>"; };
+		896AD78904176C4336610FA7 /* Pods_LiveVideo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveVideo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EED66D1F548768BD151EC6AA /* Pods-LiveVideo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveVideo.release.xcconfig"; path = "Target Support Files/Pods-LiveVideo/Pods-LiveVideo.release.xcconfig"; sourceTree = "<group>"; };
 		FFD85E952D62CD9600773449 /* LiveVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFD85EAB2D62CD9800773449 /* LiveVideoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveVideoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFD85EB52D62CD9800773449 /* LiveVideoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveVideoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23916D762E65E7BA863C2FD8 /* Pods_LiveVideo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +93,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A8446C7FF37E94DB3CC180F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				896AD78904176C4336610FA7 /* Pods_LiveVideo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9AB6F9EDF0A63D05B40AA2A2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5DABC27BED7933A6BFA65546 /* Pods-LiveVideo.debug.xcconfig */,
+				EED66D1F548768BD151EC6AA /* Pods-LiveVideo.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		FFD85E8C2D62CD9600773449 = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +117,8 @@
 				FFD85EAE2D62CD9800773449 /* LiveVideoTests */,
 				FFD85EB82D62CD9800773449 /* LiveVideoUITests */,
 				FFD85E962D62CD9600773449 /* Products */,
+				9AB6F9EDF0A63D05B40AA2A2 /* Pods */,
+				1A8446C7FF37E94DB3CC180F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,9 +139,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFD85EBE2D62CD9800773449 /* Build configuration list for PBXNativeTarget "LiveVideo" */;
 			buildPhases = (
+				28D9CD2E440617847C6EC11A /* [CP] Check Pods Manifest.lock */,
 				FFD85E912D62CD9600773449 /* Sources */,
 				FFD85E922D62CD9600773449 /* Frameworks */,
 				FFD85E932D62CD9600773449 /* Resources */,
+				07557D39233D0CFD861966DB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -124,8 +153,6 @@
 				FFD85E972D62CD9600773449 /* LiveVideo */,
 			);
 			name = LiveVideo;
-			packageProductDependencies = (
-			);
 			productName = LiveVideo;
 			productReference = FFD85E952D62CD9600773449 /* LiveVideo.app */;
 			productType = "com.apple.product-type.application";
@@ -147,8 +174,6 @@
 				FFD85EAE2D62CD9800773449 /* LiveVideoTests */,
 			);
 			name = LiveVideoTests;
-			packageProductDependencies = (
-			);
 			productName = LiveVideoTests;
 			productReference = FFD85EAB2D62CD9800773449 /* LiveVideoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -170,8 +195,6 @@
 				FFD85EB82D62CD9800773449 /* LiveVideoUITests */,
 			);
 			name = LiveVideoUITests;
-			packageProductDependencies = (
-			);
 			productName = LiveVideoUITests;
 			productReference = FFD85EB52D62CD9800773449 /* LiveVideoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -244,6 +267,52 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		07557D39233D0CFD861966DB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LiveVideo/Pods-LiveVideo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LiveVideo/Pods-LiveVideo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LiveVideo/Pods-LiveVideo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		28D9CD2E440617847C6EC11A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LiveVideo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FFD85E912D62CD9600773449 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -284,26 +353,34 @@
 /* Begin XCBuildConfiguration section */
 		FFD85EBF2D62CD9800773449 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5DABC27BED7933A6BFA65546 /* Pods-LiveVideo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2025021801;
 				DEVELOPMENT_TEAM = 8B7B8S5W9Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveVideo/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "App需要访问您的相机";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要访问您的相册以保存转换后的Live Photo";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问您的相册以保存转换后的Live Photo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = cn.com.pengge.LiveVideo;
+				PRODUCT_BUNDLE_IDENTIFIER = pgg.com.VideoToLove;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -312,26 +389,34 @@
 		};
 		FFD85EC02D62CD9800773449 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EED66D1F548768BD151EC6AA /* Pods-LiveVideo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2025021801;
 				DEVELOPMENT_TEAM = 8B7B8S5W9Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveVideo/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "App需要访问您的相机";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要访问您的相册以保存转换后的Live Photo";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问您的相册以保存转换后的Live Photo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = cn.com.pengge.LiveVideo;
+				PRODUCT_BUNDLE_IDENTIFIER = pgg.com.VideoToLove;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
