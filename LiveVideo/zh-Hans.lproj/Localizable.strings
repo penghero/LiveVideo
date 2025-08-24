@@ -79,6 +79,10 @@
 "donate_restore_failed" = "恢复购买失败: ";
 
 // 使用说明页面
+"usage_notes_section_title" = "注意事项";
+"usage_preview_section_title" = "预览和历史记录";
+"usage_video_to_live_section_title" = "视频转Live Photo使用步骤";
+"usage_custom_live_section_title" = "自定义Live Photo使用步骤";
 "usage_instructions_title" = "使用说明";
 "usage_app_subtitle" = "轻松实现视频与Live Photo之间的互相转换";
 "usage_features_section_title" = "核心功能";

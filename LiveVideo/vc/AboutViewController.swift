@@ -106,7 +106,7 @@ class AboutViewController: UIViewController {
         featuresLabel.lineBreakMode = .byWordWrapping
         
         // 配置版权信息 - 使用本地化字符串
-        copyrightLabel.text = String(format: "about_copyright".localized, "2025", "chenpeng")
+        copyrightLabel.text = String(format: "about_copyright".localized, "2025", "PGG")
         copyrightLabel.font = UIFont.systemFont(ofSize: 14)
         copyrightLabel.textColor = .lightGray
         copyrightLabel.textAlignment = .center

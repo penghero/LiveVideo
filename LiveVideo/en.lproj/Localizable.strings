@@ -74,6 +74,10 @@
 "donate_restore_failed" = "Failed to restore purchases: ";
 
 // Usage Instructions page
+"usage_notes_section_title" = "Notes";
+"usage_preview_section_title" = "Preview & History";
+"usage_video_to_live_section_title" = "Video to Live Photo Steps";
+"usage_custom_live_section_title" = "Custom Live Photo Steps";
 "usage_instructions_title" = "Usage Instructions";
 "usage_app_subtitle" = "Easily convert between video and Live Photo";
 "usage_features_section_title" = "Core Features";
