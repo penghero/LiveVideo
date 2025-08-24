@@ -228,6 +228,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = FFD85E8C2D62CD9600773449;
 			minimizedProjectReferenceProxies = 1;
@@ -362,7 +363,6 @@
 				DEVELOPMENT_TEAM = 8B7B8S5W9Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveVideo/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "App需要访问您的相机";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要访问您的相册以保存转换后的Live Photo";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问您的相册以保存转换后的Live Photo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -398,7 +398,6 @@
 				DEVELOPMENT_TEAM = 8B7B8S5W9Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LiveVideo/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "App需要访问您的相机";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要访问您的相册以保存转换后的Live Photo";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问您的相册以保存转换后的Live Photo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -428,6 +427,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -491,6 +491,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

@@ -19,9 +19,6 @@ import AVKit // 添加AVKit导入以支持AVPlayerViewController
 
 class HomeViewController: UIViewController {
     
-    // 创建转换工具实例
-    let videoToLivePhotoConverter = VideoToLivePhotoConverter()
-    let livePhotoToVideoConverter = LivePhotoToVideoConverter()
     
     // 进度指示器
     lazy var progressView: UIProgressView = {
@@ -61,7 +58,7 @@ class HomeViewController: UIViewController {
         let label = UILabel()
         label.text = "视频与Live实况互转"
         label.font = UIFont.boldSystemFont(ofSize: 22)
-        label.textColor = UIColor.black
+        label.textColor = .label
         label.textAlignment = .center
         return label
     }()
@@ -147,11 +144,16 @@ class HomeViewController: UIViewController {
     // 跟踪LivePhotoView的播放状态（修复isPlaying不存在的问题）
     var isLivePhotoPlaying: Bool = false
     
+    // 修改viewDidLoad方法中的背景色设置
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 设置背景颜色为渐变色效果
-        view.backgroundColor = UIColor(hexString: "f8f9fa")
+        // 使用系统动态颜色支持深色模式 - 修复语法错误
+        view.backgroundColor = UIColor { (traitCollection) -> UIColor in
+            return traitCollection.userInterfaceStyle == .dark ?
+            UIColor(hexString: "1c1c1e")! : // 深色模式背景色
+            UIColor(hexString: "f8f9fa")!  // 浅色模式背景色
+        }
         
         // 添加子视图
         view.addSubview(titleLabel)
@@ -273,33 +275,30 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
     // 选择视频文件 - 修复主线程警告
     func pickVideo() {
         DispatchQueue.main.async {
+            
             let picker = UIImagePickerController()
             picker.sourceType = .photoLibrary
             // 在主线程设置mediaTypes
             picker.mediaTypes = [kUTTypeMovie as String]
             picker.delegate = self
             picker.allowsEditing = true
-            
             self.present(picker, animated: true, completion: nil)
         }
+        
     }
     
     // 实现缺失的 pickLivePhoto 方法
     func pickLivePhoto() {
         DispatchQueue.main.async {
-            // 使用传统的 UIImagePickerController 来选择照片
-            let picker = UIImagePickerController()
-            picker.sourceType = .photoLibrary
-            picker.mediaTypes = [kUTTypeImage as String]
-            picker.delegate = self
+            var config = PHPickerConfiguration(photoLibrary: .shared())
+            config.selectionLimit = 1
+            config.filter = .any(of: [.livePhotos]) // Allows selecting Live Photos
             
-            // 检查设备是否支持 Live Photo
-            if #available(iOS 9.1, *) {
-                self.present(picker, animated: true, completion: nil)
-            } else {
-                self.showError("您的设备不支持 Live Photo 功能")
-            }
+            let picker = PHPickerViewController(configuration: config)
+            picker.delegate = self
+            self.present(picker, animated: true, completion: nil)
         }
+        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -439,31 +438,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeItemCollectionViewCell", for: indexPath) as! HomeItemCollectionViewCell
         
         if isVideoToLivePhoto {
-            // 修复这里：处理PHAsset类型
-            if let asset = videoToLivephotoList[indexPath.item] as? PHAsset {
-                // 使用PHCachingImageManager从PHAsset加载Live Photo
-                let targetSize = CGSize(width: 300, height: 300)
-                let options = PHLivePhotoRequestOptions()
-                options.deliveryMode = .highQualityFormat
-                
-                PHCachingImageManager.default().requestLivePhoto(for: asset,
-                                                                 targetSize: targetSize,
-                                                                 contentMode: .aspectFill,
-                                                                 options: options) {
-                    livePhoto, info in
-                    if let livePhoto = livePhoto {
-                        DispatchQueue.main.async {
-                            cell.setLivePhoto(livePhoto)
-                        }
-                    } else {
-                        // 如果无法加载Live Photo，使用占位图
-                        let placeholder = UIImage(named: "placeholder") ?? UIImage()
-                        cell.setImage(placeholder)
-                    }
-                }
-            } else {
-                let placeholder = UIImage(named: "placeholder") ?? UIImage()
-                cell.setImage(placeholder)
+            let livePhoto = videoToLivephotoList[indexPath.item]
+            DispatchQueue.main.async {
+                cell.setLivePhoto(livePhoto as! PHLivePhoto)
             }
         } else {
             // 显示视频缩略图
@@ -553,130 +530,78 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 //MARK: 转换方法实现
 extension HomeViewController {
-    //    // 实现视频转Live Photo方法
-    //    func convertVideoToLivePhoto(videoURL: URL) {
-    //        showLoading(true)
-    //
-    //        videoToLivePhotoConverter.convertVideoToLivePhoto(videoURL: videoURL) { [weak self] result in
-    //            guard let self = self else { return }
-    //
-    //            // 创建一个显式的DispatchWorkItem
-    //            let workItem = DispatchWorkItem {
-    //                self.showLoading(false)
-    //
-    //                switch result {
-    //                case .success(let asset):
-    //                    // 简化预览逻辑：直接添加asset到数组，稍后在collectionView中加载
-    //                    self.videoToLivephotoList.add(asset)
-    //                    self.showSuccess("转换成功并已保存到相册")
-    //                    self.collection.reloadData()
-    //                case .failure(let error):
-    //                    self.showError("转换失败: \(error.localizedDescription)")
-    //                }
-    //            }
-    //
-    //            // 将workItem提交到主队列
-    //            DispatchQueue.main.async(execute: workItem)
-    //        }
-    //    }
-    //
-    //    // 实现Live Photo转视频方法
-    //    func convertLivePhotoToVideo(livePhoto: PHLivePhoto) {
-    //        showLoading(true)
-    //
-    //        livePhotoToVideoConverter.convertLivePhotoToVideo(livePhoto: livePhoto) { [weak self] result in
-    //            guard let self = self else { return }
-    //
-    //            // 创建一个显式的DispatchWorkItem
-    //            let workItem = DispatchWorkItem {
-    //                self.showLoading(false)
-    //
-    //                switch result {
-    //                case .success(let videoURL):
-    //                    // 添加到列表并保存到相册
-    //                    self.livephotoToVideoList.add(videoURL)
-    //                    self.showSuccess("转换成功")
-    //                case .failure(let error):
-    //                    self.showError("转换失败: \(error.localizedDescription)")
-    //                }
-    //            }
-    //
-    //            // 将workItem提交到主队列
-    //            DispatchQueue.main.async(execute: workItem)
-    //        }
-    //    }
-    
-    // 实现视频转Live Photo方法2
+    // 实现视频转Live Photo方法
     func convertVideoToLivePhoto(videoURL: URL) {
         
+        var photoURL: URL?
+        // 获取视频第一帧作为预览
+        if let thumbnail = Tools.shared.getFirstFrameOfVideo(videoURL: videoURL) {
+            guard let data = thumbnail.jpegData(compressionQuality: 1.0) else { return }
+            photoURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("photo.jpg")
+            if let photoURL = photoURL {
+                try? data.write(to: photoURL)
+            }
+        }
         
-        LivePhotoGenerator.shared.convertVideoToLivePhoto(
-            videoURL: videoURL,
-            progressHandler: { [weak self] progress in
-                self?.showLoading(true)
-            },
-            completion: { [weak self] result in
-                self?.showLoading(false)
+        if photoURL == nil {
+            self.view.makeToast("获取视频第一帧图片失败", duration: 2.0, position: .center)
+        } else {
+            LivePhoto.generate(from: photoURL, videoURL: videoURL, progress: { (percent) in
                 DispatchQueue.main.async {
-                    switch result {
-                    case .success(let (livePhoto, movURL, jpegURL)):
-                        self?.videoToLivephotoList.add(livePhoto)
-                        self?.collection.reloadData()
-                        
-                        LivePhotoGenerator.shared.saveLivePhotoToAlbum(movURL: movURL, jpegURL: jpegURL) { [weak self] success, error in
+                    self.showLoading(true)
+                }
+            }) {[weak self] (livePhoto, resources) in
+                DispatchQueue.main.async {
+                    self?.showLoading(false)
+                }
+                
+                if let resources = resources {
+                    LivePhoto.saveToLibrary(resources, completion: {[weak self] (success) in
+                        if success {
                             DispatchQueue.main.async {
-                                if success {
-                                    self?.showSuccess("Live Photo 已保存到相册")
-                                } else {
-                                    debugPrint(error?.localizedDescription ?? NSError(domain: "SaveError", code: -1, userInfo: nil) as! String)
-                                    self?.showError(error?.localizedDescription ?? NSError(domain: "SaveError", code: -1, userInfo: nil) as! String)
-                                }
+                                self?.videoToLivephotoList.add(livePhoto)
+                                self?.collection.reloadData()
+                                
+                                // 显示成功提示
+                                self?.view.makeToast("Live Photo 转换成功", duration: 2.0, position: .center)
                             }
                         }
-                        
-                        
-                    case .failure(let error):
-                        debugPrint("转换失败: \(error.localizedDescription)")
-                        self?.showError("转换失败: \(error.localizedDescription)")
-                    }
+                        else {
+                            self?.postAlert("Live Photo 转换失败", message:"The live photo was not saved to Photos.")
+                        }
+                    })
                 }
             }
-        )
+        }
     }
     
-    // 实现Live Photo转视频方法2
+    // 实现Live Photo转视频方法
     func convertLivePhotoToVideo(livePhoto: PHLivePhoto) {
         
-        
-        LivePhotoGenerator.shared.convertLivePhotoToVideo(
-            livePhoto: livePhoto,
-            progressHandler: { [weak self] progress in
-                self?.showLoading(true)
-            },
-            completion: { [weak self] result in
-                self?.showLoading(false)
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let videoURL):
-                        self?.livephotoToVideoList.add(videoURL)
-                        self?.collection.reloadData()
-                        LivePhotoGenerator.shared.saveVideoToAlbum(videoURL: videoURL) { [weak self] success, error in
-                            DispatchQueue.main.async {
-                                if success {
-                                    self?.showSuccess("视频已保存到相册")
-                                } else {
-                                    debugPrint(error?.localizedDescription ?? NSError(domain: "SaveError", code: -1, userInfo: nil) as! String)
-                                    self?.showError(error?.localizedDescription ?? NSError(domain: "SaveError", code: -1, userInfo: nil) as! String)
-                                }
-                            }
-                        }
-                        
-                    case .failure(let error):
-                        debugPrint("转换失败: \(error.localizedDescription)")
-                        self?.showError("转换失败: \(error.localizedDescription)")
-                    }
+        self.showLoading(true)
+        LivePhoto.extractResources(from: livePhoto, completion: { resources in
+            DispatchQueue.main.async {
+                self.livephotoToVideoList.add(resources?.pairedVideo)
+                self.collection.reloadData()
+                self.saveVideo(videoUrl: resources!.pairedVideo)
+            }
+        })
+    }
+    
+    func saveVideo(videoUrl: URL) {
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: videoUrl)
+        }) { (success, error) -> Void in
+            self.showLoading(false)
+            if success == false {
+                if let errorString = error?.localizedDescription  {
+                    self.postAlert("Video Not Saved", message:errorString)
                 }
             }
-        )
+            else {
+                self.postAlert("Video Saved", message:"The video was successfully saved to Photos.")
+            }
+        }
     }
+    
 }

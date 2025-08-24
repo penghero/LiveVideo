@@ -35,18 +35,28 @@ class TabBarController: UITabBarController, UINavigationControllerDelegate {
         )
         homeNavVC.delegate = self // 设置导航控制器代理
         
+        // 创建并配置CustomLivePhotoViewController
+        let customLivePhotoVC = CustomLivePhotoViewController()
+        let customLivePhotoNavVC = UINavigationController(rootViewController: customLivePhotoVC)
+        customLivePhotoNavVC.tabBarItem = UITabBarItem(
+            title: "定制", 
+            image: UIImage(systemName: "wand.and.stars"),
+            tag: 1
+        )
+        customLivePhotoNavVC.delegate = self // 设置导航控制器代理
+        
         // 创建并配置SettingsViewController
         let settingsVC = SettingsViewController()
         let settingsNavVC = UINavigationController(rootViewController: settingsVC)
         settingsNavVC.tabBarItem = UITabBarItem(
             title: "设置", 
             image: UIImage(systemName: "gear"),
-            tag: 1
+            tag: 2
         )
         settingsNavVC.delegate = self // 设置导航控制器代理
         
         // 添加到标签栏
-        viewControllers = [homeNavVC, settingsNavVC]
+        viewControllers = [homeNavVC, customLivePhotoNavVC, settingsNavVC]
     }
     
     // MARK: - UINavigationControllerDelegate

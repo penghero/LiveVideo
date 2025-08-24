@@ -223,77 +223,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         UserDefaults.standard.set(languageCode, forKey: "appLanguage")
     }
     
-    // 显示关于我们
-    func showAboutUs() {
-        let aboutVC = UIViewController()
-        aboutVC.title = "关于我们"
-        
-        let contentView = UIView()
-        aboutVC.view.addSubview(contentView)
-        contentView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        let appNameLabel = UILabel()
-        appNameLabel.text = "LiveVideo"
-        appNameLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        appNameLabel.textAlignment = .center
-        
-        let versionLabel = UILabel()
-        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            versionLabel.text = "版本 \(version)"
-        }
-        versionLabel.font = UIFont.systemFont(ofSize: 16)
-        versionLabel.textColor = .gray
-        versionLabel.textAlignment = .center
-        
-        let descriptionLabel = UILabel()
-        descriptionLabel.text = "视频与Live Photo互转工具\n\n© 2025 chenpeng"
-        descriptionLabel.font = UIFont.systemFont(ofSize: 16)
-        descriptionLabel.textColor = .darkGray
-        descriptionLabel.textAlignment = .center
-        descriptionLabel.numberOfLines = 0
-        
-        contentView.addSubview(appNameLabel)
-        contentView.addSubview(versionLabel)
-        contentView.addSubview(descriptionLabel)
-        
-        appNameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(40)
-            $0.centerX.equalToSuperview()
-        }
-        
-        versionLabel.snp.makeConstraints {
-            $0.top.equalTo(appNameLabel.snp.bottom).offset(10)
-            $0.centerX.equalToSuperview()
-        }
-        
-        descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(versionLabel.snp.bottom).offset(30)
-            $0.left.right.equalToSuperview().inset(20)
-        }
-        
-        navigationController?.pushViewController(aboutVC, animated: true)
-    }
-    
-    // 显示使用说明
-    func showUsageInstructions() {
-        let instructionsVC = UIViewController()
-        instructionsVC.title = "使用说明"
-        
-        let textView = UITextView()
-        textView.text = "1. 视频转Live Photo\n   - 点击'选择视频文件'按钮\n   - 从相册中选择一个长度不超过3秒的视频\n   - 等待转换完成，结果将显示在下方列表中\n\n2. Live Photo转视频\n   - 点击顶部'Live实况转视频'切换模式\n   - 点击'选择Live Photo'按钮\n   - 从相册中选择一个Live Photo\n   - 等待转换完成，结果将显示在下方列表中\n\n3. 预览功能\n   - 点击列表中的项目可以预览转换结果\n\n4. 注意事项\n   - 转换过程可能需要一定时间，请耐心等待\n   - 请确保应用有相册访问权限"
-        textView.font = UIFont.systemFont(ofSize: 16)
-        textView.isEditable = false
-        textView.isScrollEnabled = true
-        
-        instructionsVC.view.addSubview(textView)
-        textView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        navigationController?.pushViewController(instructionsVC, animated: true)
-    }
     
     // 清除缓存
     func clearCache() {
@@ -310,7 +239,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                     let fileURL = URL(fileURLWithPath: tempDir).appendingPathComponent(file)
                     try fileManager.removeItem(at: fileURL)
                 }
-                self.showToast("缓存清除成功")
+                self.showToast("缓存清除成功",)
             } catch {
                 self.showToast("缓存清除失败：\(error.localizedDescription)")
             }
@@ -319,30 +248,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         
         present(alertController, animated: true, completion: nil)
-    }
-    
-    // 显示历史记录
-    func showHistory() {
-        let historyVC = UIViewController()
-        historyVC.title = "历史记录"
-        
-        // 这里可以根据需要实现历史记录功能
-        // 目前只是显示一个空的界面
-        let emptyLabel = UILabel()
-        emptyLabel.text = "暂无转换历史"
-        emptyLabel.textAlignment = .center
-        emptyLabel.textColor = .gray
-        
-        historyVC.view.addSubview(emptyLabel)
-        emptyLabel.snp.makeConstraints {
-            $0.center.equalToSuperview()
-        }
-        
-        // 添加清除历史按钮
-        let clearButton = UIBarButtonItem(title: "清除", style: .plain, target: self, action: #selector(clearHistory))
-        historyVC.navigationItem.rightBarButtonItem = clearButton
-        
-        navigationController?.pushViewController(historyVC, animated: true)
     }
     
     // 清除历史记录
@@ -363,7 +268,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // 显示提示信息
     func showToast(_ message: String) {
-        let toastLabel = UILabel(frame: CGRect(x: view.frame.width/2 - 100, y: view.frame.height - 100, width: 200, height: 35))
+        let toastLabel = UILabel(frame: CGRect(x: view.frame.width/2 - 100, y: view.frame.height - 150, width: 200, height: 35))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
         toastLabel.textAlignment = .center

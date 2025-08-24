@@ -1,10 +1,13 @@
+//
+//  DonateViewController.swift
 //  LiveVideo
 //
 //  Created by chenpeng on 2025/3/10.
 //
 
 import UIKit
-import StoreKit // 导入StoreKit框架
+import StoreKit
+import SnapKit
 
 class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver {
     
@@ -25,13 +28,16 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
     // 存储产品ID和产品的映射关系
     private var productMap = [String: SKProduct]()
     
+    // 内容容器视图
+    private let contentContainer = UIView()
+    
     // 标题标签
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "支持我们"
         label.font = UIFont.boldSystemFont(ofSize: 28)
         label.textAlignment = .center
-        label.textColor = .label
+        label.textColor = .black
         return label
     }()
     
@@ -42,7 +48,7 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
         label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.textColor = .secondaryLabel
+        label.textColor = .darkGray
         return label
     }()
     
@@ -50,18 +56,12 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
     private let appIconView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "heart.fill")
-        imageView.tintColor = UIColor.systemPink
+        imageView.tintColor = UIColor.red
         imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 25
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 2
-        imageView.layer.borderColor = UIColor.systemPink.cgColor
-        // 添加阴影效果
-        imageView.layer.shadowColor = UIColor.systemPink.cgColor
-        imageView.layer.shadowOffset = CGSize(width: 0, height: 4)
-        imageView.layer.shadowOpacity = 0.3
-        imageView.layer.shadowRadius = 6
-        imageView.layer.masksToBounds = false
+        imageView.layer.borderColor = UIColor.red.cgColor
         return imageView
     }()
     
@@ -73,15 +73,11 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
         let button = UIButton(type: .system)
         button.setTitle("确认捐赠", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 25
         button.clipsToBounds = true
         button.isEnabled = false
-        // 添加阴影效果
-        button.layer.shadowColor = UIColor.systemPink.cgColor
-        button.layer.shadowOffset = CGSize(width: 0, height: 2)
-        button.layer.shadowOpacity = 0.2
-        button.layer.shadowRadius = 4
-        button.layer.masksToBounds = false
+        button.backgroundColor = UIColor.lightGray
+        button.setTitleColor(.white, for: .normal)
         return button
     }()
     
@@ -92,7 +88,7 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
         label.font = UIFont.systemFont(ofSize: 12)
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.textColor = .tertiaryLabel
+        label.textColor = .lightGray
         return label
     }()
     
@@ -101,7 +97,7 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
         let button = UIButton(type: .system)
         button.setTitle("恢复购买", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitleColor(UIColor.blue, for: .normal)
         return button
     }()
     
@@ -112,16 +108,19 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
         return indicator
     }()
     
+    // 装饰性元素 - 顶部波浪
+    private let waveView = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // 设置标题
-        title = "打赏"
+        self.title = "支持我们"
         
         // 配置视图
-        configureUI()
-        configureConstraints()
-        configureTheme()
+        setupUI()
+        setupConstraints()
+        setupAnimations()
         
         // 添加手势识别器
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -140,19 +139,37 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
     }
     
     // 配置UI
-    private func configureUI() {
+    private func setupUI() {
+        // 设置背景色
+        view.backgroundColor = UIColor(red: 255/255, green: 250/255, blue: 250/255, alpha: 1.0)
+        
+        // 添加装饰性波浪
+        waveView.backgroundColor = UIColor(red: 255/255, green: 200/255, blue: 200/255, alpha: 0.3)
+        waveView.layer.cornerRadius = 150
+        waveView.transform = CGAffineTransform(scaleX: 2.0, y: 1.0)
+        
+        // 创建内容容器
+        contentContainer.backgroundColor = .white
+        contentContainer.layer.cornerRadius = 20
+        contentContainer.layer.shadowColor = UIColor.black.cgColor
+        contentContainer.layer.shadowOpacity = 0.1
+        contentContainer.layer.shadowOffset = CGSize(width: 0, height: 5)
+        contentContainer.layer.shadowRadius = 10
+        
         // 添加子视图
-        view.addSubview(titleLabel)
-        view.addSubview(descriptionLabel)
-        view.addSubview(appIconView)
-        view.addSubview(activityIndicator)
+        view.addSubview(waveView)
+        view.addSubview(contentContainer)
+        contentContainer.addSubview(titleLabel)
+        contentContainer.addSubview(descriptionLabel)
+        contentContainer.addSubview(appIconView)
+        contentContainer.addSubview(activityIndicator)
         
         // 创建金额按钮
         let buttonStackView = UIStackView()
         buttonStackView.axis = .vertical
-        buttonStackView.spacing = 12
+        buttonStackView.spacing = 16
         buttonStackView.distribution = .fillEqually
-        view.addSubview(buttonStackView)
+        contentContainer.addSubview(buttonStackView)
         
         for amount in donationAmounts {
             let button = createAmountButton(amount: amount)
@@ -161,9 +178,9 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
         }
         
         // 添加确认按钮、恢复购买按钮和隐私说明
-        view.addSubview(donateButton)
-        view.addSubview(restoreButton)
-        view.addSubview(privacyNoteLabel)
+        contentContainer.addSubview(donateButton)
+        contentContainer.addSubview(restoreButton)
+        contentContainer.addSubview(privacyNoteLabel)
         
         // 添加按钮点击事件
         donateButton.addTarget(self, action: #selector(donateButtonTapped), for: .touchUpInside)
@@ -175,100 +192,144 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
         let button = UIButton(type: .system)
         button.setTitle("$\(amount)", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 20
         button.layer.borderWidth = 1
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(amountButtonTapped(_:)), for: .touchUpInside)
         button.isEnabled = false // 默认禁用，加载产品后启用
-        // 添加轻微的阴影效果
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 0, height: 1)
-        button.layer.shadowOpacity = 0.1
-        button.layer.shadowRadius = 2
-        button.layer.masksToBounds = false
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.backgroundColor = .white
+        button.setTitleColor(.black, for: .normal)
         return button
     }
     
     // 配置约束
-    private func configureConstraints() {
-        // 使用SnapKit设置约束
-        titleLabel.snp.makeConstraints {
+    private func setupConstraints() {
+        // 波浪装饰视图约束
+        waveView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(-200)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(400)
+        }
+        
+        // 内容容器约束
+        contentContainer.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            $0.left.right.equalToSuperview().inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
+        }
+        
+        // 标题标签约束
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(30)
             $0.left.right.equalToSuperview().inset(20)
         }
         
+        // 描述标签约束
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(10)
             $0.left.right.equalToSuperview().inset(30)
         }
         
+        // 图标视图约束
         appIconView.snp.makeConstraints {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(30)
             $0.centerX.equalToSuperview()
             $0.width.height.equalTo(100)
         }
         
+        // 加载指示器约束
         activityIndicator.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalTo(appIconView)
         }
         
         // 获取金额按钮堆栈视图
-        guard let buttonStackView = view.subviews.first(where: { $0 is UIStackView }) as? UIStackView else {
+        guard let buttonStackView = contentContainer.subviews.first(where: { $0 is UIStackView }) as? UIStackView else {
             return
         }
         
+        // 金额按钮堆栈视图约束
         buttonStackView.snp.makeConstraints {
-            $0.top.equalTo(appIconView.snp.bottom).offset(30)
+            $0.top.equalTo(appIconView.snp.bottom).offset(40)
             $0.left.right.equalToSuperview().inset(30)
-            $0.height.equalTo(200)
+            $0.height.equalTo(220)
         }
         
+        // 确认捐赠按钮约束
         donateButton.snp.makeConstraints {
             $0.top.equalTo(buttonStackView.snp.bottom).offset(30)
             $0.left.right.equalToSuperview().inset(30)
             $0.height.equalTo(50)
         }
         
+        // 恢复购买按钮约束
         restoreButton.snp.makeConstraints {
-            $0.top.equalTo(donateButton.snp.bottom).offset(10)
+            $0.top.equalTo(donateButton.snp.bottom).offset(15)
             $0.centerX.equalToSuperview()
         }
         
+        // 隐私说明标签约束
         privacyNoteLabel.snp.makeConstraints {
             $0.top.equalTo(restoreButton.snp.bottom).offset(20)
             $0.left.right.equalToSuperview().inset(30)
-            $0.bottom.lessThanOrEqualTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.bottom.equalToSuperview().offset(-30)
         }
     }
     
-    // 配置主题
-    private func configureTheme() {
-        updateColorsForCurrentTheme()
+    // 添加动画效果
+    private func setupAnimations() {
+        // 初始状态设置为不可见
+        contentContainer.alpha = 0.0
+        contentContainer.transform = CGAffineTransform(translationX: 0, y: 30)
         
-        // 跟随系统主题
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = .unspecified
-        }
+        appIconView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        
+        // 添加淡入和上移动画
+        UIView.animate(withDuration: 0.6, delay: 0.1, options: .curveEaseOut, animations: {
+            self.contentContainer.alpha = 1.0
+            self.contentContainer.transform = .identity
+        }, completion: nil)
+        
+        // 添加图标缩放动画
+        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, animations: {
+            self.appIconView.transform = .identity
+        }, completion: nil)
+        
+        // 波浪装饰动画
+        UIView.animate(withDuration: 10.0, delay: 0, options: [.repeat, .autoreverse, .curveEaseInOut], animations: {
+            self.waveView.transform = CGAffineTransform(scaleX: 2.2, y: 1.1).rotated(by: 0.05)
+        }, completion: nil)
     }
     
-    // 更新当前主题的颜色
-    private func updateColorsForCurrentTheme() {
-        let isDarkMode = view.traitCollection.userInterfaceStyle == .dark
-        
-        // 背景颜色
-        view.backgroundColor = .systemBackground
-        
-        // 金额按钮
+    // 金额按钮选中状态更新
+    private func updateButtonSelectionStates() {
         for button in amountButtons {
-            button.layer.borderColor = (button.isSelected ? UIColor.systemPink.cgColor : (isDarkMode ? UIColor.systemGray4.cgColor : UIColor.systemGray3.cgColor))
-            button.backgroundColor = button.isSelected ? UIColor.systemPink.withAlphaComponent(0.1) : UIColor.clear
-            button.setTitleColor(button.isSelected ? UIColor.systemPink : .label, for: .normal)
+            if button.isSelected {
+                button.layer.borderColor = UIColor.red.cgColor
+                button.backgroundColor = UIColor(red: 255/255, green: 240/255, blue: 240/255, alpha: 1.0)
+                button.setTitleColor(.red, for: .normal)
+            } else {
+                button.layer.borderColor = UIColor.lightGray.cgColor
+                button.backgroundColor = .white
+                button.setTitleColor(.black, for: .normal)
+            }
         }
         
-        // 捐赠按钮
-        donateButton.backgroundColor = donateButton.isEnabled ? UIColor.systemPink : UIColor.systemGray
-        donateButton.setTitleColor(.white, for: .normal)
+        // 更新捐赠按钮状态
+        donateButton.isEnabled = selectedAmount != nil
+        donateButton.backgroundColor = selectedAmount != nil ? UIColor.red : UIColor.lightGray
+        
+        // 添加选中按钮的动画效果
+        if let selectedButton = amountButtons.first(where: { $0.isSelected }) {
+            UIView.animate(withDuration: 0.2, animations: {
+                selectedButton.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+            }, completion: { _ in
+                UIView.animate(withDuration: 0.1, animations: {
+                    selectedButton.transform = .identity
+                })
+            })
+        }
     }
     
     // 金额按钮点击事件
@@ -287,8 +348,7 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
         }
         
         // 更新按钮状态
-        donateButton.isEnabled = true
-        updateColorsForCurrentTheme()
+        updateButtonSelectionStates()
     }
     
     // 捐赠按钮点击事件
@@ -334,32 +394,50 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
     
     // 显示提示信息
     private func showToast(_ message: String) {
-        let toastLabel = UILabel(frame: CGRect(x: view.frame.width/2 - 150, y: view.frame.height - 120, width: 300, height: 40))
-        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        toastLabel.textColor = UIColor.white
-        toastLabel.textAlignment = .center
-        toastLabel.font = UIFont.systemFont(ofSize: 16)
+        // 创建提示标签
+        let toastLabel = UILabel()
         toastLabel.text = message
+        toastLabel.textColor = .white
+        toastLabel.font = UIFont.systemFont(ofSize: 16)
+        toastLabel.textAlignment = .center
+        toastLabel.numberOfLines = 0
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         toastLabel.layer.cornerRadius = 20
         toastLabel.clipsToBounds = true
+        toastLabel.layer.shadowColor = UIColor.black.cgColor
+        toastLabel.layer.shadowOpacity = 0.2
+        toastLabel.layer.shadowOffset = CGSize(width: 0, height: 2)
+        toastLabel.layer.shadowRadius = 4
+        toastLabel.layer.masksToBounds = false
         
+        // 添加到视图
         view.addSubview(toastLabel)
         
-        UIView.animate(withDuration: 0.5, delay: 2.5, options: .curveEaseOut, animations: {
-            toastLabel.alpha = 0.0
-        }) { _ in
-            toastLabel.removeFromSuperview()
+        // 设置约束，增加内边距效果
+        toastLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-60)
+            $0.left.right.greaterThanOrEqualToSuperview().inset(40)
+            $0.width.lessThanOrEqualTo(view.frame.width - 80)
+            $0.height.greaterThanOrEqualTo(60) // 增加最小高度来模拟内边距效果
         }
-    }
-    
-    // 系统主题变化时调用
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
         
-        if #available(iOS 13.0, *) {
-            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-                updateColorsForCurrentTheme()
-            }
+        // 初始状态设置为不可见
+        toastLabel.alpha = 0.0
+        toastLabel.transform = CGAffineTransform(translationX: 0, y: 20)
+        
+        // 显示动画
+        UIView.animate(withDuration: 0.3) {
+            toastLabel.alpha = 1.0
+            toastLabel.transform = .identity
+        }
+        
+        // 隐藏动画
+        UIView.animate(withDuration: 0.3, delay: 2.0) {
+            toastLabel.alpha = 0.0
+            toastLabel.transform = CGAffineTransform(translationX: 0, y: 20)
+        } completion: {_ in 
+            toastLabel.removeFromSuperview()
         }
     }
     
@@ -433,13 +511,20 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
                     let formatter = NumberFormatter()
                     formatter.numberStyle = .currency
                     formatter.locale = product.priceLocale
-                    let priceString = formatter.string(from: product.price)
-                    
-                    // 这里可以根据产品ID设置对应的按钮标题
-                    // 为了简化，我们保持原有的美元金额显示
+                    if let priceString = formatter.string(from: product.price) {
+                        // 这里可以根据产品ID设置对应的按钮标题
+                        for button in self.amountButtons {
+                            if let buttonTitle = button.title(for: .normal),
+                               let buttonAmount = Double(buttonTitle.dropFirst()),
+                               product.price == NSDecimalNumber(value: buttonAmount) {
+                                button.setTitle(priceString, for: .normal)
+                                break
+                            }
+                        }
+                    }
                 }
             } else {
-                self.showToast("无法加载产品信息")
+//                self.showToast("无法加载产品信息")
                 print("无法加载产品: \(response.invalidProductIdentifiers)")
             }
         }
@@ -484,7 +569,6 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
             self.hideActivityIndicator()
             
             // 提供购买的内容（对于打赏功能，这里只是感谢）
-            // 修复SKPayment没有product属性的问题
             let productIdentifier = transaction.payment.productIdentifier
             if let product = self.productMap[productIdentifier] {
                 let formatter = NumberFormatter()
@@ -492,9 +576,9 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
                 formatter.locale = product.priceLocale
                 let priceString = formatter.string(from: product.price) ?? ""
                 
-                self.showToast("感谢您的 \(priceString) 捐赠！")
+                self.showToast("感谢您的 \(priceString) 捐赠！\n我们会继续努力改进产品！")
             } else {
-                self.showToast("感谢您的捐赠！")
+                self.showToast("感谢您的捐赠！\n我们会继续努力改进产品！")
             }
             
             // 完成交易

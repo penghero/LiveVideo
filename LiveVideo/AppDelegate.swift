@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
-        // 使用TabBarController作为根控制器
-        window?.rootViewController = TabBarController()
+        // 首先显示启动页
+        window?.rootViewController = SplashViewController()
         window?.makeKeyAndVisible()
         
         return true
