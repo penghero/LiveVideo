@@ -34,7 +34,7 @@ class HomeViewController: UIViewController {
     
     lazy var segmentControl: UISegmentedControl = {
         // 使用新的初始化方式避免iOS版本兼容性问题
-        let segment = UISegmentedControl(items: ["视频转Live实况", "Live实况转视频"])
+        let segment = UISegmentedControl(items: ["video_to_live_photo".localized(), "live_photo_to_video".localized()])
         segment.selectedSegmentIndex = 0
         segment.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
         
@@ -56,7 +56,7 @@ class HomeViewController: UIViewController {
     // 标题标签
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "视频与Live实况互转"
+        label.text = "home_page_title".localized()
         label.font = UIFont.boldSystemFont(ofSize: 22)
         label.textColor = .label
         label.textAlignment = .center
@@ -90,7 +90,7 @@ class HomeViewController: UIViewController {
     lazy var selectedMediaButton: UIButton = {
         let btn = UIButton(type: UIButton.ButtonType.custom)
         btn.addTarget(self, action: #selector(selectMediaAction), for: .touchUpInside)
-        btn.setTitle("选择视频文件", for: .normal)
+        btn.setTitle(isVideoToLivePhoto ? "select_video_file".localized() : "select_live_photo".localized(), for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.backgroundColor = UIColor(hexString: "067425")
         btn.layer.cornerRadius = 22
@@ -108,7 +108,7 @@ class HomeViewController: UIViewController {
     // 说明标签
     lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "选择要转换的媒体文件，转换后的文件将自动保存到相册"
+        label.text = "home_description".localized()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = UIColor.gray
         label.textAlignment = .center
@@ -120,9 +120,9 @@ class HomeViewController: UIViewController {
     var isVideoToLivePhoto: Bool = true {
         didSet{
             if isVideoToLivePhoto {
-                selectedMediaButton.setTitle("选择视频文件", for: .normal)
+                selectedMediaButton.setTitle("select_video_file".localized(), for: .normal)
             } else {
-                selectedMediaButton.setTitle("选择Live Photo", for: .normal)
+                selectedMediaButton.setTitle("select_live_photo".localized(), for: .normal)
             }
             // 刷新集合视图显示
             collection.reloadData()
@@ -202,6 +202,33 @@ class HomeViewController: UIViewController {
         
         // 初始加载相册中的媒体
         loadMediaFromAlbum()
+        
+        // 2. 注册语言变化通知
+        registerForLanguageChanges()
+    }
+    
+    // 3. 取消注册语言变化通知
+    deinit {
+        unregisterForLanguageChanges()
+    }
+    
+    // 4. 重写languageDidChange方法，更新所有UI元素的本地化文本
+    override func languageDidChange() {
+        // 更新标题标签
+        titleLabel.text = "home_page_title".localized()
+        
+        // 更新分段控制器
+        segmentControl.setTitle("video_to_live_photo".localized(), forSegmentAt: 0)
+        segmentControl.setTitle("live_photo_to_video".localized(), forSegmentAt: 1)
+        
+        // 更新按钮文本
+        selectedMediaButton.setTitle(isVideoToLivePhoto ? "select_video_file".localized() : "select_live_photo".localized(), for: .normal)
+        
+        // 更新描述标签
+        descriptionLabel.text = "home_description".localized()
+        
+        // 刷新集合视图，确保单元格中的文本也得到更新
+        collection.reloadData()
     }
     
     // 从相册加载媒体文件
@@ -210,7 +237,7 @@ class HomeViewController: UIViewController {
         PHPhotoLibrary.requestAuthorization { [weak self] status in
             guard status == .authorized else {
                 DispatchQueue.main.async {
-                    self?.view.makeToast("需要相册访问权限", duration: 2.0, position: .center)
+                    self?.view.makeToast("need_photo_access_permission".localized(), duration: 2.0, position: .center)
                 }
                 return
             }
@@ -258,7 +285,7 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
         PHPhotoLibrary.requestAuthorization { [weak self] status in
             guard let self = self, status == .authorized else {
                 DispatchQueue.main.async {
-                    self?.view.makeToast("需要相册访问权限", duration: 2.0, position: .center)
+                    self?.view.makeToast("need_photo_access_permission".localized(), duration: 2.0, position: .center)
                 }
                 return
             }
@@ -380,7 +407,7 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
             if let livePhoto = livePhoto {
                 self?.convertLivePhotoToVideo(livePhoto: livePhoto)
             } else {
-                self?.showError("无法加载 Live Photo")
+                self?.showError("failed_to_load_live_photo".localized())
             }
             
             // 清理临时文件
@@ -413,7 +440,7 @@ extension HomeViewController: PHPickerViewControllerDelegate {
                     }
                 } else {
                     DispatchQueue.main.async {
-                        self?.showError("选择的不是有效的Live Photo")
+                        self?.showError("not_valid_live_photo".localized())
                     }
                 }
             }
@@ -544,7 +571,7 @@ extension HomeViewController {
         }
         
         if photoURL == nil {
-            self.view.makeToast("获取视频第一帧图片失败", duration: 2.0, position: .center)
+            self.view.makeToast("failed_to_get_video_first_frame".localized(), duration: 2.0, position: .center)
         } else {
             LivePhoto.generate(from: photoURL, videoURL: videoURL, progress: { (percent) in
                 DispatchQueue.main.async {
@@ -563,11 +590,11 @@ extension HomeViewController {
                                 self?.collection.reloadData()
                                 
                                 // 显示成功提示
-                                self?.view.makeToast("Live Photo 转换成功", duration: 2.0, position: .center)
+                                self?.view.makeToast("live_photo_conversion_success".localized(), duration: 2.0, position: .center)
                             }
                         }
                         else {
-                            self?.postAlert("Live Photo 转换失败", message:"The live photo was not saved to Photos.")
+                            self?.postAlert("live_photo_conversion_failed".localized(), message:"live_photo_not_saved".localized())
                         }
                     })
                 }
@@ -595,11 +622,11 @@ extension HomeViewController {
             self.showLoading(false)
             if success == false {
                 if let errorString = error?.localizedDescription  {
-                    self.postAlert("Video Not Saved", message:errorString)
+                    self.postAlert("video_not_saved".localized(), message:errorString)
                 }
             }
             else {
-                self.postAlert("Video Saved", message:"The video was successfully saved to Photos.")
+                self.postAlert("video_saved".localized(), message:"video_saved_to_photos".localized())
             }
         }
     }

@@ -26,7 +26,7 @@ class CustomLivePhotoViewController: UIViewController {
     // 标题标签
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "定制Live Photo"
+        label.text = "custom_live_photo_title".localized
         label.font = UIFont.boldSystemFont(ofSize: 22)
         label.textColor = .label
         label.textAlignment = .center
@@ -36,7 +36,7 @@ class CustomLivePhotoViewController: UIViewController {
     // 说明标签
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "选择一张图片和一段视频，将它们合成为自定义Live Photo"
+        label.text = "custom_live_photo_description".localized
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = UIColor.gray
         label.textAlignment = .center
@@ -47,7 +47,7 @@ class CustomLivePhotoViewController: UIViewController {
     // 图片选择按钮
     private lazy var selectImageButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("选择图片", for: .normal)
+        button.setTitle("custom_live_photo_select_image".localized, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 1
@@ -61,7 +61,7 @@ class CustomLivePhotoViewController: UIViewController {
     // 视频选择按钮
     private lazy var selectVideoButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("选择视频", for: .normal)
+        button.setTitle("custom_live_photo_select_video".localized, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 1
@@ -75,7 +75,7 @@ class CustomLivePhotoViewController: UIViewController {
     // 开始转换按钮
     private lazy var convertButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("开始转换", for: .normal)
+        button.setTitle("custom_live_photo_start_convert".localized, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.layer.cornerRadius = 22
         button.backgroundColor = UIColor(hexString: "067425")
@@ -106,7 +106,7 @@ class CustomLivePhotoViewController: UIViewController {
     
     private lazy var imagePreviewLabel: UILabel = {
         let label = UILabel()
-        label.text = "图片预览"
+        label.text = "custom_live_photo_image_preview".localized
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .secondaryLabel
         return label
@@ -137,7 +137,7 @@ class CustomLivePhotoViewController: UIViewController {
     
     private lazy var videoPreviewLabel: UILabel = {
         let label = UILabel()
-        label.text = "视频预览"
+        label.text = "custom_live_photo_video_preview".localized
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .secondaryLabel
         return label
@@ -169,7 +169,7 @@ class CustomLivePhotoViewController: UIViewController {
     
     private lazy var livePhotoLabel: UILabel = {
         let label = UILabel()
-        label.text = "Live Photo预览 (点击播放/暂停)"
+        label.text = "custom_live_photo_live_preview".localized
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .secondaryLabel
         return label
@@ -208,7 +208,7 @@ class CustomLivePhotoViewController: UIViewController {
         super.viewDidLoad()
         
         // 添加右侧导航重置按钮
-        let resetButton = UIBarButtonItem(title: "重置", style: .plain, target: self, action: #selector(resetPage))
+        let resetButton = UIBarButtonItem(title: "custom_live_photo_reset".localized, style: .plain, target: self, action: #selector(resetPage))
         resetButton.tintColor = UIColor(hexString: "067425")
         self.navigationItem.rightBarButtonItem = resetButton
         
@@ -224,6 +224,28 @@ class CustomLivePhotoViewController: UIViewController {
         
         // 添加约束
         setupConstraints()
+        
+        // 注册语言变化通知
+        registerForLanguageChanges()
+    }
+    
+    deinit {
+        // 取消注册语言变化通知
+        unregisterForLanguageChanges()
+    }
+    
+    // 当语言变化时调用
+    override func languageDidChange() {
+        // 更新界面文本
+        titleLabel.text = "custom_live_photo_title".localized
+        descriptionLabel.text = "custom_live_photo_description".localized
+        selectImageButton.setTitle("custom_live_photo_select_image".localized, for: .normal)
+        selectVideoButton.setTitle("custom_live_photo_select_video".localized, for: .normal)
+        convertButton.setTitle("custom_live_photo_start_convert".localized, for: .normal)
+        imagePreviewLabel.text = "custom_live_photo_image_preview".localized
+        videoPreviewLabel.text = "custom_live_photo_video_preview".localized
+        livePhotoLabel.text = "custom_live_photo_live_preview".localized
+        self.navigationItem.rightBarButtonItem?.title = "custom_live_photo_reset".localized
     }
     
     // 添加重置页面方法
@@ -254,7 +276,7 @@ class CustomLivePhotoViewController: UIViewController {
         convertButton.alpha = 0.5
         
         // 显示重置成功提示
-        view.makeToast("页面已重置", duration: 1.5, position: .center)
+        view.makeToast("custom_live_photo_reset_success".localized, duration: 1.5, position: .center)
     }
     
     // 设置子视图
@@ -403,7 +425,7 @@ class CustomLivePhotoViewController: UIViewController {
     // 开始转换按钮点击事件
     @objc private func startConvertAction() {
         guard let imageURL = selectedImageURL, let videoURL = selectedVideoURL else {
-            showAlert(message: "请先选择图片和视频")
+            showAlert(message: "custom_live_photo_select_both".localized)
             return
         }
         
@@ -441,17 +463,15 @@ class CustomLivePhotoViewController: UIViewController {
                             self?.showLivePhotoPreview(livePhoto: livePhoto!)
                             
                             // 显示成功提示
-                            self?.view.makeToast("Live Photo 转换成功", duration: 2.0, position: .center)
+                            self?.view.makeToast("custom_live_photo_convert_success".localized, duration: 2.0, position: .center)
                         }
                     }
                     else {
-                        self?.postAlert("Live Photo 转换失败", message:"The live photo was not saved to Photos.")
+                        self?.postAlert("custom_live_photo_convert_failed".localized, message:"custom_live_photo_save_failed".localized)
                     }
                 })
             }
         }
-        
-        
     }
     
     // 显示LivePhoto预览
@@ -506,8 +526,8 @@ class CustomLivePhotoViewController: UIViewController {
     
     // 显示警告对话框
     private func showAlert(message: String) {
-        let alert = UIAlertController(title: "提示", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "确定", style: .default, handler: nil))
+        let alert = UIAlertController(title: "custom_live_photo_alert_title".localized, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "ok".localized, style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     
@@ -551,7 +571,7 @@ extension CustomLivePhotoViewController: PHPickerViewControllerDelegate {
                 } else if let error = error {
                     print("加载图片失败: \(error)")
                     DispatchQueue.main.async {
-                        self?.showAlert(message: "加载图片失败")
+                        self?.showAlert(message: "custom_live_photo_load_image_failed".localized)
                     }
                 }
             }
@@ -583,13 +603,13 @@ extension CustomLivePhotoViewController: PHPickerViewControllerDelegate {
                     } catch {
                         print("保存视频失败: \(error)")
                         DispatchQueue.main.async {
-                            self?.showAlert(message: "保存视频失败")
+                            self?.showAlert(message: "custom_live_photo_save_video_failed".localized)
                         }
                     }
                 } else if let error = error {
                     print("加载视频失败: \(error)")
                     DispatchQueue.main.async {
-                        self?.showAlert(message: "加载视频失败")
+                        self?.showAlert(message: "custom_live_photo_load_video_failed".localized)
                     }
                 }
             }

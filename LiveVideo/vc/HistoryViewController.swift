@@ -66,17 +66,37 @@ class HistoryViewController: UIViewController {
     // 存储键名
     private let historyStorageKey = "LiveVideo_HistoryItems"
     
+    // 在HistoryViewController类中添加以下修改
+    
+    // 重写languageDidChange方法以响应语言变化
+    override func languageDidChange() {
+        super.languageDidChange()
+        
+        // 更新标题
+        self.title = "history_title".localized
+        
+        // 更新清除按钮
+        navigationItem.rightBarButtonItem?.title = "history_clear".localized
+        
+        // 更新空历史标签
+        emptyLabel.text = "history_empty".localized
+        
+        // 刷新表格数据以更新单元格中的文本
+        tableView.reloadData()
+    }
+    
+    // 在viewDidLoad中使用本地化字符串
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // 设置标题
-        self.title = "历史记录"
+        self.title = "history_title".localized
         
         // 设置背景颜色
         view.backgroundColor = .systemBackground
         
         // 添加清除历史按钮
-        let clearButton = UIBarButtonItem(title: "清除", style: .plain, target: self, action: #selector(clearHistory))
+        let clearButton = UIBarButtonItem(title: "history_clear".localized, style: .plain, target: self, action: #selector(clearHistory))
         navigationItem.rightBarButtonItem = clearButton
         
         // 添加表格视图
@@ -90,6 +110,7 @@ class HistoryViewController: UIViewController {
         emptyLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
         }
+        emptyLabel.text = "history_empty".localized
         
         // 加载历史记录
         loadHistoryItems()
@@ -133,18 +154,18 @@ class HistoryViewController: UIViewController {
     
     // 清除历史记录
     @objc func clearHistory() {
-        let alertController = UIAlertController(title: "清除历史记录", message: "确定要清除所有转换历史吗？", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "history_clear_confirm_title".localized, message: "history_clear_confirm_message".localized, preferredStyle: .alert)
         
-        alertController.addAction(UIAlertAction(title: "确定", style: .destructive) { _ in
+        alertController.addAction(UIAlertAction(title: "ok".localized, style: .destructive) { _ in
             // 清除历史记录逻辑
             self.historyItems.removeAll()
             self.saveHistoryItems()
             self.tableView.reloadData()
             self.updateEmptyLabelVisibility()
-            self.showToast("历史记录已清除")
+            self.showToast("history_record_cleared".localized)
         })
         
-        alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
         
         present(alertController, animated: true, completion: nil)
     }

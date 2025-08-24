@@ -25,11 +25,25 @@ class TabBarController: UITabBarController, UINavigationControllerDelegate {
             tabBar.barTintColor = .white
         }
         
+        // 初始化标签栏项目
+        setupTabBarItems()
+        
+        // 注册语言变化通知
+        registerForLanguageChanges()
+    }
+    
+    deinit {
+        // 取消注册语言变化通知
+        unregisterForLanguageChanges()
+    }
+    
+    // 初始化标签栏项目
+    private func setupTabBarItems() {
         // 创建并配置HomeViewController
         let homeVC = HomeViewController()
         let homeNavVC = UINavigationController(rootViewController: homeVC)
         homeNavVC.tabBarItem = UITabBarItem(
-            title: "转换", 
+            title: "tabbar_convert".localized, 
             image: UIImage(systemName: "photo.on.rectangle.angled"),
             tag: 0
         )
@@ -39,7 +53,7 @@ class TabBarController: UITabBarController, UINavigationControllerDelegate {
         let customLivePhotoVC = CustomLivePhotoViewController()
         let customLivePhotoNavVC = UINavigationController(rootViewController: customLivePhotoVC)
         customLivePhotoNavVC.tabBarItem = UITabBarItem(
-            title: "定制", 
+            title: "tabbar_custom".localized, 
             image: UIImage(systemName: "wand.and.stars"),
             tag: 1
         )
@@ -49,7 +63,7 @@ class TabBarController: UITabBarController, UINavigationControllerDelegate {
         let settingsVC = SettingsViewController()
         let settingsNavVC = UINavigationController(rootViewController: settingsVC)
         settingsNavVC.tabBarItem = UITabBarItem(
-            title: "设置", 
+            title: "tabbar_settings".localized, 
             image: UIImage(systemName: "gear"),
             tag: 2
         )
@@ -57,6 +71,34 @@ class TabBarController: UITabBarController, UINavigationControllerDelegate {
         
         // 添加到标签栏
         viewControllers = [homeNavVC, customLivePhotoNavVC, settingsNavVC]
+    }
+    
+    // 当语言变化时调用
+    override func languageDidChange() {
+        // 更新标签栏项目标题
+        if let items = tabBar.items {
+            items[0].title = "tabbar_convert".localized
+            items[1].title = "tabbar_custom".localized
+            items[2].title = "tabbar_settings".localized
+        }
+        
+        // 如果当前显示的是HomeViewController，更新其标题
+        if let navVC = viewControllers?[0] as? UINavigationController,
+           let homeVC = navVC.topViewController as? HomeViewController {
+//            homeVC.title = "home_title".localized
+        }
+        
+        // 如果当前显示的是CustomLivePhotoViewController，更新其标题
+        if let navVC = viewControllers?[1] as? UINavigationController,
+           let customVC = navVC.topViewController as? CustomLivePhotoViewController {
+//            customVC.title = "home_custom_live_photo".localized
+        }
+        
+        // 如果当前显示的是SettingsViewController，更新其标题
+        if let navVC = viewControllers?[2] as? UINavigationController,
+           let settingsVC = navVC.topViewController as? SettingsViewController {
+//            settingsVC.title = "settings_title".localized
+        }
     }
     
     // MARK: - UINavigationControllerDelegate

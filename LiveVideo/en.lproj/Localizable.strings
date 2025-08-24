@@ -4,4 +4,245 @@
 
   Created by chenpeng on 2025/8/24.
   
+  Project internationalization English strings
 */
+
+// Common strings
+"app_name" = "LiveVideo";
+"app_subtitle" = "Video & Live Photo Converter";
+"app_splash_slogan" = "Video & Live Photo Conversion";
+"ok" = "OK";
+"cancel" = "Cancel";
+"success" = "Success";
+"error" = "Error";
+"loading" = "Loading...";
+"save_to_photos" = "Save to Photos";
+
+// Home page
+"home_title" = "Home";
+"home_video_to_live_photo" = "Video to Live Photo";
+"home_live_photo_to_video" = "Live Photo to Video";
+"home_custom_live_photo" = "Custom Live Photo";
+
+// About page
+"about_title" = "About";
+"about_version" = "Version %@ (Build %@)";
+"about_description" = "Video & Live Photo Converter\n\n© %@ %@";
+"about_full_description" = "LiveVideo is a professional tool for converting between video and Live Photo,\nallowing you to easily switch between different media formats,\nand preserve wonderful moments in your life.";
+"about_features" = "Features";
+"about_features_list" = "✨ Video to Live Photo\n✨ Live Photo to Video\n✨ Custom Live Photo Creation\n✨ Clean and Intuitive User Interface";
+"about_feature_1" = "• Video to Live Photo";
+"about_feature_2" = "• Live Photo to Video";
+"about_feature_3" = "• Custom Live Photo Creation";
+"about_copyright" = "© %@ %@\nAll rights reserved";
+
+// History page
+"history_title" = "History";
+"history_clear" = "Clear";
+"history_clear_confirm_title" = "Clear History";
+"history_clear_confirm_message" = "Are you sure you want to clear all conversion history?";
+"history_empty" = "No conversion history";
+"history_item_video_to_live_photo" = "Video to Live Photo";
+"history_item_live_photo_to_video" = "Live Photo to Video";
+"history_item_custom_live_photo" = "Custom Live Photo";
+"history_file_not_exist" = "File does not exist";
+"history_record_cleared" = "History has been cleared";
+
+// Donate page
+"donate_title" = "Support Development";
+"donate_description" = "If you like this app, please consider donating to support our development work!";
+"donate_full_description" = "Your support will help us continuously improve the product\nThank you for your kind donation!";
+"donate_confirm_button" = "Confirm Donation";
+"donate_restore_button" = "Restore Purchases";
+"donate_privacy_note" = "All payment information will be processed through secure channels\nYour personal information will not be collected";
+"donate_amount_1" = "$1.00";
+"donate_amount_5" = "$5.00";
+"donate_amount_10" = "$10.00";
+"donate_amount_99" = "$99.00";
+
+// Donate page - Messages
+"donate_select_amount" = "Please select a donation amount";
+"donate_product_not_found" = "Could not find product for the selected amount";
+"donate_enable_in_app_purchase" = "Please enable in-app purchases in device settings";
+"donate_load_product_error" = "Failed to load product information: ";
+"donate_thank_you_with_amount" = "Thank you for your %@ donation!\nWe will continue to improve the product!";
+"donate_thank_you" = "Thank you for your donation!\nWe will continue to improve the product!";
+"donate_payment_failed" = "Payment failed: ";
+"donate_purchases_restored" = "Purchase history has been restored";
+"donate_transaction_pending" = "Transaction pending, please wait...";
+"donate_no_purchases_found" = "No purchase history found";
+"donate_restore_failed" = "Failed to restore purchases: ";
+
+// Usage Instructions page
+"usage_instructions_title" = "Usage Instructions";
+"usage_app_subtitle" = "Easily convert between video and Live Photo";
+"usage_features_section_title" = "Core Features";
+"usage_feature_video_to_live_desc" = "Convert regular video files to interactive Live Photos, making static photos come alive.";
+"usage_feature_live_to_video_desc" = "Convert iPhone-captured Live Photos back to standard video format for easy sharing and use.";
+"usage_feature_custom_live_desc" = "Select an image and a video to create a unique Live Photo effect.";
+"usage_video_to_live_section_title" = "Video to Live Photo Steps";
+// Usage Instructions page - Step titles
+"usage_step_select_mode_title" = "Select Conversion Mode";
+"usage_step_select_file_title" = "Select Video";
+"usage_step_select_live_photo_title" = "Select Live Photo";
+"usage_step_wait_conversion_title" = "Wait for Conversion";
+"usage_step_view_result_title" = "View Result";
+"usage_custom_step1_title" = "Enter Custom Interface";
+"usage_custom_step2_title" = "Select Image and Video";
+"usage_custom_step3_title" = "Start Conversion";
+"usage_custom_step4_title" = "Preview and Save";
+
+// Usage Instructions page - Step descriptions
+"usage_video_step1_desc" = "Select 'Video to Live Photo' mode on the home screen.";
+"usage_video_step2_desc" = "Tap 'Select Video File' button to choose a video file from your photo album.";
+"usage_video_step3_desc" = "The system will automatically process the video and generate a Live Photo, showing progress during conversion.";
+"usage_video_step4_desc" = "After conversion is complete, the Live Photo will be displayed in the list below and automatically saved to your photo album.";
+
+"usage_live_step1_desc" = "Tap 'Live Photo to Video' on the home screen to switch modes.";
+"usage_live_step2_desc" = "Tap 'Select Live Photo' button to choose a Live Photo from your photo album.";
+"usage_live_step3_desc" = "The system will automatically extract and process the video part of the Live Photo.";
+"usage_live_step4_desc" = "After conversion is complete, the video will be displayed in the list below and automatically saved to your photo album.";
+
+"usage_custom_step1_desc" = "Select the 'Custom' feature from the bottom navigation bar to enter the custom Live Photo creation interface.";
+"usage_custom_step2_desc" = "Tap 'Select Image' and 'Select Video' buttons respectively to choose materials from your photo album.";
+"usage_custom_step3_desc" = "After confirming material selection, tap 'Start Conversion' button to begin generating a custom Live Photo.";
+"usage_custom_step4_desc" = "You can directly preview the effect after conversion is complete, and the system will automatically save the result to your photo album.";
+
+// Usage Instructions page - Other text
+"usage_preview_content" = "On the home screen's conversion results list, tap any item to preview the conversion effect:\n- For Live Photos, tap to play/pause the dynamic effect\n- For videos, tap to play the full video\n\nAll conversion results are automatically saved to your system photo album, which you can view and use at any time.";
+"usage_note_permission" = "Please ensure the app has been granted photo album access, otherwise you won't be able to select and save media files.";
+"usage_note_conversion_time" = "The conversion process may take some time, depending on your device performance and media file size.";
+"usage_note_video_length" = "It is recommended to use shorter videos (preferably no longer than 3 seconds) for the best Live Photo effect.";
+"usage_note_keep_app_active" = "Please keep the app running in the foreground during conversion and avoid switching to other apps.";
+"usage_button" = "Confirm Donation";
+"donate_privacy_policy" = "Privacy Note: We do not collect any of your personal information";
+"donate_restore_purchases" = "Restore Purchases";
+"donate_thank_you" = "Thank you for your support!";
+"donate_payment_failed" = "Payment failed";
+"donate_payment_cancelled" = "Payment cancelled";
+"donate_payment_restored" = "Purchases restored";
+"donate_product_not_available" = "Product not available";
+
+// Custom Live Photo page
+"custom_live_photo_title" = "Custom Live Photo";
+"custom_live_photo_description" = "Select an image and a video to create a custom Live Photo";
+"custom_live_photo_select_image" = "Select Image";
+"custom_live_photo_select_video" = "Select Video";
+"custom_live_photo_start_convert" = "Start Conversion";
+"custom_live_photo_image_preview" = "Image Preview";
+"custom_live_photo_video_preview" = "Video Preview";
+"custom_live_photo_live_preview" = "Live Photo Preview (Tap to play/pause)";
+"custom_live_photo_reset" = "Reset";
+"custom_live_photo_reset_success" = "Page has been reset";
+"custom_live_photo_select_both" = "Please select both image and video first";
+"custom_live_photo_convert_success" = "Live Photo conversion successful";
+"custom_live_photo_convert_failed" = "Live Photo conversion failed";
+"custom_live_photo_save_failed" = "The live photo was not saved to Photos";
+"custom_live_photo_alert_title" = "Alert";
+"custom_live_photo_load_image_failed" = "Failed to load image";
+"custom_live_photo_save_video_failed" = "Failed to save video";
+"custom_live_photo_load_video_failed" = "Failed to load video";
+"custom_select_image" = "Select Image";
+"custom_select_video" = "Select Video";
+"custom_generate_live_photo" = "Generate Live Photo";
+"custom_preview_live_photo" = "Preview Live Photo";
+"custom_save_live_photo" = "Save Live Photo";
+"custom_generation_success" = "Live Photo generated successfully";
+"custom_generation_failed" = "Failed to generate Live Photo";
+"custom_please_select_both" = "Please select both image and video";
+
+// Usage Instructions page
+"usage_title" = "Usage Instructions";
+"usage_video_to_live_photo_title" = "Video to Live Photo";
+"usage_video_to_live_photo_step_1" = "1. Tap the \"Video to Live Photo\" button";
+"usage_video_to_live_photo_step_2" = "2. Select the video file to convert";
+"usage_video_to_live_photo_step_3" = "3. Wait for the conversion to complete";
+"usage_video_to_live_photo_step_4" = "4. Preview and save the generated Live Photo";
+"usage_live_photo_to_video_title" = "Live Photo to Video";
+"usage_live_photo_to_video_step_1" = "1. Tap the \"Live Photo to Video\" button";
+"usage_live_photo_to_video_step_2" = "2. Select the Live Photo to convert";
+"usage_live_photo_to_video_step_3" = "3. Wait for the conversion to complete";
+"usage_live_photo_to_video_step_4" = "4. Preview and save the generated video";
+"usage_custom_live_photo_title" = "Custom Live Photo";
+"usage_custom_live_photo_step_1" = "1. Tap the \"Custom Live Photo\" button";
+"usage_custom_live_photo_step_2" = "2. Select an image as the cover";
+"usage_custom_live_photo_step_3" = "3. Select a video as the dynamic content";
+"usage_custom_live_photo_step_4" = "4. Tap the \"Generate Live Photo\" button";
+"usage_custom_live_photo_step_5" = "5. Preview and save the generated Live Photo";
+
+// Settings page
+"settings_title" = "Settings";
+"settings_section_appearance" = "Appearance";
+"settings_section_language" = "Language";
+"settings_section_information" = "Information";
+"settings_section_storage" = "Storage";
+"settings_section_history" = "History";
+"settings_item_dark_mode" = "Dark Mode";
+"settings_item_language" = "Language Settings";
+"settings_item_about" = "About Us";
+"settings_item_usage_instructions" = "Usage Instructions";
+"settings_item_clear_cache" = "Clear Cache";
+"settings_item_history" = "History";
+"settings_item_donate" = "Donate Support";
+"settings_dark_mode_not_supported" = "Your system version does not support dark mode";
+"settings_language_select_title" = "Select Language";
+"settings_language_chinese" = "简体中文";
+"settings_language_english" = "English";
+"settings_language_change_restart" = "语言设置将在下次启动时生效";
+"settings_language_change_restart_en" = "Language will take effect on next launch";
+"settings_clear_cache_title" = "Clear Cache";
+"settings_clear_cache_message" = "Are you sure you want to clear all cache data?";
+"settings_cache_cleared_success" = "Cache cleared successfully";
+"settings_cache_cleared_failed" = "Failed to clear cache: ";
+"settings_usage_guide" = "Usage Guide";
+"settings_privacy_policy" = "Privacy Policy";
+"settings_terms_of_service" = "Terms of Service";
+"settings_cache_cleared" = "Cache cleared";
+"settings_confirm_clear_cache" = "Are you sure you want to clear all cache?";
+
+// Toast messages
+"toast_preview_live_photo" = "Preview Live Photo: %@";
+"toast_history_cleared" = "History has been cleared";
+"toast_file_not_exist" = "File does not exist";
+"toast_purchase_success" = "Purchase successful, thank you for your support!";
+"toast_purchase_failed" = "Purchase failed, please try again later";
+"toast_purchase_cancelled" = "Purchase cancelled";
+"toast_purchase_restored" = "Purchases restored";
+"toast_live_photo_saved" = "Live Photo saved to Photos";
+"toast_video_saved" = "Video saved to Photos";
+"toast_generation_success" = "Generation successful";
+"toast_generation_failed" = "Generation failed";
+
+// Tab Bar
+"tabbar_convert" = "Convert";
+"tabbar_custom" = "Custom";
+"tabbar_settings" = "Settings";
+
+// Home page related
+"home_page_title" = "Video & Live Photo Conversion";
+"video_to_live_photo" = "Video to Live Photo";
+"live_photo_to_video" = "Live Photo to Video";
+"select_video_file" = "Select Video File";
+"select_live_photo" = "Select Live Photo";
+"home_description" = "Select media files to convert, converted files will be automatically saved to Photos";
+
+// Permission related
+"need_photo_access_permission" = "Need photo album access permission";
+
+// Error messages
+"failed_to_load_live_photo" = "Failed to load Live Photo";
+"system_version_not_supported" = "Your system version does not support this feature";
+"please_select_live_photo" = "Please select a Live Photo";
+"not_valid_live_photo" = "Selected file is not a valid Live Photo";
+"failed_to_get_video_first_frame" = "Failed to get video first frame";
+
+// Conversion status
+"live_photo_conversion_success" = "Live Photo conversion successful";
+"live_photo_conversion_failed" = "Live Photo conversion failed";
+"live_photo_not_saved" = "The live photo was not saved to Photos";
+"video_not_saved" = "Video Not Saved";
+"video_saved" = "Video Saved";
+"video_saved_to_photos" = "The video was successfully saved to Photos";
+
+// Live Photo Preview page
+"live_photo_preview_title" = "Live Photo Preview";

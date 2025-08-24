@@ -4,4 +4,243 @@
 
   Created by chenpeng on 2025/8/24.
   
+  项目国际化中文字符串
 */
+
+// 通用字符串
+"app_name" = "LiveVideo";
+"app_subtitle" = "视频与Live Photo互转工具";
+"app_splash_slogan" = "视频与Live实况互转";
+"ok" = "确定";
+"cancel" = "取消";
+"success" = "成功";
+"error" = "错误";
+"loading" = "加载中...";
+"save_to_photos" = "保存到相册";
+
+// 标签栏
+"tabbar_convert" = "转换";
+"tabbar_custom" = "定制";
+"tabbar_settings" = "设置";
+
+// 首页
+"home_title" = "首页";
+"home_video_to_live_photo" = "视频转Live Photo";
+"home_live_photo_to_video" = "Live Photo转视频";
+"home_custom_live_photo" = "自定义Live Photo";
+
+// 关于页面
+"about_title" = "关于";
+"about_version" = "版本 %@ (Build %@)";
+"about_description" = "视频与Live Photo互转工具\n\n© %@ %@";
+"about_full_description" = "LiveVideo是一款专业的视频与Live Photo互转工具，\n让您轻松在不同媒体格式间进行转换，\n保存生活中的精彩瞬间。";
+"about_features" = "功能特点";
+"about_features_list" = "✨ 视频转Live Photo\n✨ Live Photo转视频\n✨ 自定义Live Photo制作\n✨ 简洁直观的用户界面";
+"about_feature_1" = "• 视频转Live Photo";
+"about_feature_2" = "• Live Photo转视频";
+"about_feature_3" = "• 自定义Live Photo制作";
+"about_copyright" = "© %@ %@\n保留所有权利";
+
+// 历史记录页面
+"history_title" = "历史记录";
+"history_clear" = "清除";
+"history_clear_confirm_title" = "清除历史记录";
+"history_clear_confirm_message" = "确定要清除所有转换历史吗？";
+"history_empty" = "暂无转换历史";
+"history_item_video_to_live_photo" = "视频转Live Photo";
+"history_item_live_photo_to_video" = "Live Photo转视频";
+"history_item_custom_live_photo" = "自定义Live Photo";
+"history_file_not_exist" = "文件不存在";
+"history_record_cleared" = "历史记录已清除";
+
+// 捐赠页面
+"donate_title" = "支持开发";
+"donate_description" = "如果您喜欢这个应用，请考虑捐赠支持我们的开发工作！";
+"donate_full_description" = "您的支持将帮助我们持续改进产品\n感谢您的爱心捐赠！";
+"donate_confirm_button" = "确认捐赠";
+"donate_restore_button" = "恢复购买";
+"donate_privacy_note" = "所有支付信息将通过安全通道处理\n您的个人信息不会被收集";
+"donate_amount_1" = "¥1.00";
+"donate_amount_5" = "¥5.00";
+"donate_amount_10" = "¥10.00";
+"donate_amount_99" = "¥99.00";
+
+// 捐赠页面 - 提示信息
+"donate_select_amount" = "请选择捐赠金额";
+"donate_product_not_found" = "无法找到对应金额的产品";
+"donate_enable_in_app_purchase" = "请在设备设置中启用应用内购买";
+"donate_load_product_error" = "加载产品信息失败: ";
+"donate_thank_you_with_amount" = "感谢您的 %@ 捐赠！\n我们会继续努力改进产品！";
+"donate_thank_you" = "感谢您的捐赠！\n我们会继续努力改进产品！";
+"donate_payment_failed" = "支付失败: ";
+"donate_purchases_restored" = "购买记录已恢复";
+"donate_transaction_pending" = "交易等待中，请稍候...";
+"donate_no_purchases_found" = "没有找到购买记录";
+"donate_restore_failed" = "恢复购买失败: ";
+
+// 使用说明页面
+"usage_instructions_title" = "使用说明";
+"usage_app_subtitle" = "轻松实现视频与Live Photo之间的互相转换";
+"usage_features_section_title" = "核心功能";
+"usage_feature_video_to_live_desc" = "将普通视频文件转换为可交互的Live Photo，让静态照片动起来。";
+"usage_feature_live_to_video_desc" = "将iPhone拍摄的Live Photo转换回标准视频格式，便于分享和使用。";
+"usage_feature_custom_live_desc" = "选择一张图片和一段视频，将它们合成为独特的Live Photo效果。";
+"usage_video_to_live_section_title" = "视频转Live Photo步骤";
+"usage_step_select_mode_title" = "选择转换模式";
+"usage_step_select_file_title" = "选择视频";
+"usage_step_select_live_photo_title" = "选择Live Photo";
+"usage_step_wait_conversion_title" = "等待转换";
+"usage_step_view_result_title" = "查看结果";
+"usage_custom_step1_title" = "进入自定义界面";
+"usage_custom_step2_title" = "选择图片和视频";
+"usage_custom_step3_title" = "开始转换";
+"usage_custom_step4_title" = "预览与保存";
+
+// 使用说明页面 - 步骤描述
+"usage_video_step1_desc" = "在首页选择'视频转Live实况'模式。";
+"usage_video_step2_desc" = "点击'选择视频文件'按钮，从相册中选择一个视频文件。";
+"usage_video_step3_desc" = "系统会自动处理视频并生成Live Photo，转换过程中显示进度。";
+"usage_video_step4_desc" = "转换完成后，Live Photo将显示在下方列表中，并自动保存到相册。";
+
+"usage_live_step1_desc" = "在首页点击'Live实况转视频'切换模式。";
+"usage_live_step2_desc" = "点击'选择Live Photo'按钮，从相册中选择一个Live Photo。";
+"usage_live_step3_desc" = "系统会自动提取Live Photo中的视频部分并进行处理。";
+"usage_live_step4_desc" = "转换完成后，视频将显示在下方列表中，并自动保存到相册。";
+
+"usage_custom_step1_desc" = "从底部导航栏选择'定制'功能进入自定义Live Photo制作界面。";
+"usage_custom_step2_desc" = "分别点击'选择图片'和'选择视频'按钮，从相册中选择素材。";
+"usage_custom_step3_desc" = "确认素材选择后，点击'开始转换'按钮开始生成自定义Live Photo。";
+"usage_custom_step4_desc" = "转换完成后可直接预览效果，系统会自动将结果保存到相册中。";
+
+// 使用说明页面 - 其他文本
+"usage_preview_content" = "在首页的转换结果列表中，点击任意项目可以预览转换效果：\n- 对于Live Photo，点击可以播放/暂停动态效果\n- 对于视频，点击可以播放完整视频\n\n所有转换结果都会自动保存到系统相册中，您可以随时查看和使用。";
+"usage_note_permission" = "请确保应用已获得相册访问权限，否则无法选择和保存媒体文件。";
+"usage_note_conversion_time" = "转换过程可能需要一定时间，取决于您的设备性能和媒体文件大小。";
+"usage_note_video_length" = "建议使用较短的视频（最好不超过3秒）以获得最佳的Live Photo效果。";
+"usage_note_keep_app_active" = "转换过程中请保持应用在前台运行，避免切换到其他应用。";
+"usage_button" = "确认捐赠";
+"donate_privacy_policy" = "隐私说明：我们不会收集您的任何个人信息";
+"donate_restore_purchases" = "恢复购买";
+"donate_thank_you" = "感谢您的支持！";
+"donate_payment_failed" = "支付失败";
+"donate_payment_cancelled" = "支付已取消";
+"donate_payment_restored" = "购买已恢复";
+"donate_product_not_available" = "产品不可用";
+
+// 自定义LivePhoto页面
+"custom_live_photo_title" = "定制Live Photo";
+"custom_live_photo_description" = "选择一张图片和一段视频，将它们合成为自定义Live Photo";
+"custom_live_photo_select_image" = "选择图片";
+"custom_live_photo_select_video" = "选择视频";
+"custom_live_photo_start_convert" = "开始转换";
+"custom_live_photo_image_preview" = "图片预览";
+"custom_live_photo_video_preview" = "视频预览";
+"custom_live_photo_live_preview" = "Live Photo预览 (点击播放/暂停)";
+"custom_live_photo_reset" = "重置";
+"custom_live_photo_reset_success" = "页面已重置";
+"custom_live_photo_select_both" = "请先选择图片和视频";
+"custom_live_photo_convert_success" = "Live Photo 转换成功";
+"custom_live_photo_convert_failed" = "Live Photo 转换失败";
+"custom_live_photo_save_failed" = "Live Photo 保存失败";
+"custom_live_photo_alert_title" = "提示";
+"custom_live_photo_load_image_failed" = "加载图片失败";
+"custom_live_photo_save_video_failed" = "保存视频失败";
+"custom_live_photo_load_video_failed" = "加载视频失败";
+"custom_select_image" = "选择图片";
+"custom_select_video" = "选择视频";
+"custom_generate_live_photo" = "生成Live Photo";
+"custom_preview_live_photo" = "预览Live Photo";
+"custom_save_live_photo" = "保存Live Photo";
+"custom_generation_success" = "Live Photo生成成功";
+"custom_generation_failed" = "Live Photo生成失败";
+"custom_please_select_both" = "请选择图片和视频";
+
+// 使用说明页面
+"usage_title" = "使用说明";
+"usage_video_to_live_photo_title" = "视频转Live Photo";
+"usage_video_to_live_photo_step_1" = "1. 点击\"视频转Live Photo\"按钮";
+"usage_video_to_live_photo_step_2" = "2. 选择要转换的视频文件";
+"usage_video_to_live_photo_step_3" = "3. 等待转换完成";
+"usage_video_to_live_photo_step_4" = "4. 预览并保存生成的Live Photo";
+"usage_live_photo_to_video_title" = "Live Photo转视频";
+"usage_live_photo_to_video_step_1" = "1. 点击\"Live Photo转视频\"按钮";
+"usage_live_photo_to_video_step_2" = "2. 选择要转换的Live Photo";
+"usage_live_photo_to_video_step_3" = "3. 等待转换完成";
+"usage_live_photo_to_video_step_4" = "4. 预览并保存生成的视频";
+"usage_custom_live_photo_title" = "自定义Live Photo";
+"usage_custom_live_photo_step_1" = "1. 点击\"自定义Live Photo\"按钮";
+"usage_custom_live_photo_step_2" = "2. 选择一张图片作为封面";
+"usage_custom_live_photo_step_3" = "3. 选择一段视频作为动态内容";
+"usage_custom_live_photo_step_4" = "4. 点击\"生成Live Photo\"按钮";
+"usage_custom_live_photo_step_5" = "5. 预览并保存生成的Live Photo";
+
+// 设置页面
+"settings_title" = "设置";
+"settings_section_appearance" = "外观";
+"settings_section_language" = "语言";
+"settings_section_information" = "信息";
+"settings_section_storage" = "存储";
+"settings_section_history" = "历史记录";
+"settings_item_dark_mode" = "深色模式";
+"settings_item_language" = "语言设置";
+"settings_item_about" = "关于我们";
+"settings_item_usage_instructions" = "使用说明";
+"settings_item_clear_cache" = "清除缓存";
+"settings_item_history" = "历史记录";
+"settings_item_donate" = "打赏支持";
+"settings_dark_mode_not_supported" = "您的系统版本不支持深色模式";
+"settings_language_select_title" = "选择语言";
+"settings_language_chinese" = "简体中文";
+"settings_language_english" = "English";
+"settings_language_change_restart" = "语言设置将在下次启动时生效";
+"settings_language_change_restart_en" = "Language will take effect on next launch";
+"settings_clear_cache_title" = "清除缓存";
+"settings_clear_cache_message" = "确定要清除所有缓存数据吗？";
+"settings_cache_cleared_success" = "缓存清除成功";
+"settings_cache_cleared_failed" = "缓存清除失败：";
+"settings_usage_guide" = "使用指南";
+"settings_privacy_policy" = "隐私政策";
+"settings_terms_of_service" = "服务条款";
+"settings_cache_cleared" = "缓存已清除";
+"settings_confirm_clear_cache" = "确定要清除所有缓存吗？";
+
+// 提示信息
+"toast_preview_live_photo" = "预览Live Photo: %@";
+"toast_history_cleared" = "历史记录已清除";
+"toast_file_not_exist" = "文件不存在";
+"toast_purchase_success" = "购买成功，感谢您的支持！";
+"toast_purchase_failed" = "购买失败，请稍后再试";
+"toast_purchase_cancelled" = "购买已取消";
+"toast_purchase_restored" = "购买已恢复";
+"toast_live_photo_saved" = "Live Photo已保存到相册";
+"toast_video_saved" = "视频已保存到相册";
+"toast_generation_success" = "生成成功";
+"toast_generation_failed" = "生成失败";
+
+// 首页相关
+"home_page_title" = "视频与Live实况互转";
+"video_to_live_photo" = "视频转Live实况";
+"live_photo_to_video" = "Live实况转视频";
+"select_video_file" = "选择视频文件";
+"select_live_photo" = "选择Live Photo";
+"home_description" = "选择要转换的媒体文件，转换后的文件将自动保存到相册";
+
+// 权限相关
+"need_photo_access_permission" = "需要相册访问权限";
+
+// 错误提示
+"failed_to_load_live_photo" = "无法加载 Live Photo";
+"system_version_not_supported" = "您的系统版本不支持此功能";
+"please_select_live_photo" = "请选择一个 Live Photo";
+"not_valid_live_photo" = "选择的不是有效的Live Photo";
+"failed_to_get_video_first_frame" = "获取视频第一帧图片失败";
+
+// 转换状态
+"live_photo_conversion_success" = "Live Photo 转换成功";
+"live_photo_conversion_failed" = "Live Photo 转换失败";
+"live_photo_not_saved" = "Live Photo 未保存到相册";
+"video_not_saved" = "视频未保存";
+"video_saved" = "视频已保存";
+"video_saved_to_photos" = "视频已成功保存到相册";
+// Live Photo预览页面
+"live_photo_preview_title" = "Live Photo预览";

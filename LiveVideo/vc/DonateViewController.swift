@@ -114,8 +114,8 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 设置标题
-        self.title = "支持我们"
+        // 设置标题 - 使用本地化字符串
+        self.title = "donate_title".localized
         
         // 配置视图
         setupUI()
@@ -131,11 +131,17 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
         
         // 加载产品信息
         loadProducts()
+        
+        // 注册语言变化通知
+        registerForLanguageChanges()
     }
     
     deinit {
         // 移除观察者
         SKPaymentQueue.default().remove(self)
+        
+        // 取消注册语言变化通知
+        unregisterForLanguageChanges()
     }
     
     // 配置UI
@@ -164,6 +170,9 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
         contentContainer.addSubview(appIconView)
         contentContainer.addSubview(activityIndicator)
         
+        // 更新UI文本为本地化字符串
+        updateLocalizedText()
+        
         // 创建金额按钮
         let buttonStackView = UIStackView()
         buttonStackView.axis = .vertical
@@ -187,10 +196,44 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
         restoreButton.addTarget(self, action: #selector(restorePurchases), for: .touchUpInside)
     }
     
+    // 更新本地化文本
+    private func updateLocalizedText() {
+        titleLabel.text = "donate_title".localized
+        descriptionLabel.text = "donate_full_description".localized
+        donateButton.setTitle("donate_confirm_button".localized, for: .normal)
+        restoreButton.setTitle("donate_restore_button".localized, for: .normal)
+        privacyNoteLabel.text = "donate_privacy_note".localized
+        
+        // 更新金额按钮文本（如果已有产品信息）
+        for product in products {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .currency
+            formatter.locale = product.priceLocale
+            if let priceString = formatter.string(from: product.price) {
+                for button in amountButtons {
+                    if let buttonTitle = button.title(for: .normal),
+                       let buttonAmount = Double(buttonTitle.dropFirst()),
+                       product.price == NSDecimalNumber(value: buttonAmount) {
+                        button.setTitle(priceString, for: .normal)
+                        break
+                    }
+                }
+            }
+        }
+    }
+    
+    // 当语言变化时调用
+    override func languageDidChange() {
+        updateLocalizedText()
+    }
+    
     // 创建金额按钮
     private func createAmountButton(amount: Double) -> UIButton {
         let button = UIButton(type: .system)
-        button.setTitle("$\(amount)", for: .normal)
+        
+        // 根据当前语言设置不同的货币符号
+        let currencySymbol = LocalizableManager.shared.currentLanguage == "zh-Hans" ? "$" : "$"
+        button.setTitle("\(currencySymbol)\(amount)", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         button.layer.cornerRadius = 20
         button.layer.borderWidth = 1
@@ -358,7 +401,7 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
         
         // 检查是否有选中的金额
         guard let selectedAmount = selectedAmount else {
-            showToast("请选择捐赠金额")
+            showToast("donate_select_amount".localized)
             return
         }
         
@@ -370,10 +413,10 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
                 SKPaymentQueue.default().add(payment)
                 showActivityIndicator()
             } else {
-                showToast("无法找到对应金额的产品")
+                showToast("donate_product_not_found".localized)
             }
         } else {
-            showToast("请在设备设置中启用应用内购买")
+            showToast("donate_enable_in_app_purchase".localized)
         }
     }
     
@@ -383,7 +426,7 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
             showActivityIndicator()
             SKPaymentQueue.default().restoreCompletedTransactions()
         } else {
-            showToast("请在设备设置中启用应用内购买")
+            showToast("donate_enable_in_app_purchase".localized)
         }
     }
     
@@ -490,7 +533,7 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
     // MARK: - SKProductsRequestDelegate
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { 
             self.hideActivityIndicator()
             
             if !response.products.isEmpty {
@@ -507,33 +550,17 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
                 }
                 
                 // 更新按钮标题为本地化价格
-                for product in response.products {
-                    let formatter = NumberFormatter()
-                    formatter.numberStyle = .currency
-                    formatter.locale = product.priceLocale
-                    if let priceString = formatter.string(from: product.price) {
-                        // 这里可以根据产品ID设置对应的按钮标题
-                        for button in self.amountButtons {
-                            if let buttonTitle = button.title(for: .normal),
-                               let buttonAmount = Double(buttonTitle.dropFirst()),
-                               product.price == NSDecimalNumber(value: buttonAmount) {
-                                button.setTitle(priceString, for: .normal)
-                                break
-                            }
-                        }
-                    }
-                }
+                self.updateLocalizedText()
             } else {
-//                self.showToast("无法加载产品信息")
                 print("无法加载产品: \(response.invalidProductIdentifiers)")
             }
         }
     }
     
     func request(_ request: SKRequest, didFailWithError error: Error) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { 
             self.hideActivityIndicator()
-            self.showToast("加载产品信息失败: \(error.localizedDescription)")
+            self.showToast("donate_load_product_error".localized + error.localizedDescription)
             print("产品请求失败: \(error.localizedDescription)")
         }
     }
@@ -565,7 +592,7 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
     }
     
     private func completeTransaction(_ transaction: SKPaymentTransaction) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { 
             self.hideActivityIndicator()
             
             // 提供购买的内容（对于打赏功能，这里只是感谢）
@@ -576,9 +603,9 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
                 formatter.locale = product.priceLocale
                 let priceString = formatter.string(from: product.price) ?? ""
                 
-                self.showToast("感谢您的 \(priceString) 捐赠！\n我们会继续努力改进产品！")
+                self.showToast(String(format: "donate_thank_you_with_amount".localized, priceString))
             } else {
-                self.showToast("感谢您的捐赠！\n我们会继续努力改进产品！")
+                self.showToast("donate_thank_you".localized)
             }
             
             // 完成交易
@@ -587,12 +614,12 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
     }
     
     private func failedTransaction(_ transaction: SKPaymentTransaction) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { 
             self.hideActivityIndicator()
             
             if let error = transaction.error as? SKError {
                 if error.code != .paymentCancelled {
-                    self.showToast("支付失败: \(error.localizedDescription)")
+                    self.showToast("donate_payment_failed".localized + error.localizedDescription)
                 }
             }
             
@@ -602,10 +629,10 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
     }
     
     private func restoreTransaction(_ transaction: SKPaymentTransaction) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { 
             // 对于打赏功能，恢复购买主要是为了用户在更换设备时能看到他们的捐赠记录
             self.hideActivityIndicator()
-            self.showToast("购买记录已恢复")
+            self.showToast("donate_purchases_restored".localized)
             
             // 完成交易
             SKPaymentQueue.default().finishTransaction(transaction)
@@ -613,26 +640,26 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
     }
     
     private func deferredTransaction(_ transaction: SKPaymentTransaction) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { 
             self.hideActivityIndicator()
-            self.showToast("交易等待中，请稍候...")
+            self.showToast("donate_transaction_pending".localized)
         }
     }
     
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { 
             self.hideActivityIndicator()
             
             if queue.transactions.isEmpty {
-                self.showToast("没有找到购买记录")
+                self.showToast("donate_no_purchases_found".localized)
             }
         }
     }
     
     func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { 
             self.hideActivityIndicator()
-            self.showToast("恢复购买失败: \(error.localizedDescription)")
+            self.showToast("donate_restore_failed".localized + error.localizedDescription)
         }
     }
 }

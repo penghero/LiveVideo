@@ -34,8 +34,8 @@ class AboutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 设置标题
-        self.title = "关于我们"
+        // 设置标题 - 使用本地化字符串
+        self.title = "about_title".localized
         
         // 设置背景颜色
         view.backgroundColor = .white
@@ -73,40 +73,40 @@ class AboutViewController: UIViewController {
             appIconView.layer.borderColor = UIColor.blue.cgColor
         }
         
-        // 配置应用标题
-        appTitleLabel.text = "LiveVideo"
+        // 配置应用标题 - 使用本地化字符串
+        appTitleLabel.text = "app_name".localized
         appTitleLabel.font = UIFont.boldSystemFont(ofSize: 28)
         appTitleLabel.textAlignment = .center
         
         // 配置版本信息
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, 
            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
-            versionLabel.text = "版本 \(version) (Build \(build))"
+            versionLabel.text = String(format: "about_version".localized, version, build)
         } else if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            versionLabel.text = "版本 \(version)"
+            versionLabel.text = String(format: "about_version".localized, version)
         }
         versionLabel.font = UIFont.systemFont(ofSize: 16)
         versionLabel.textColor = .gray
         versionLabel.textAlignment = .center
         
-        // 配置应用描述
-        descriptionLabel.text = "LiveVideo是一款专业的视频与Live Photo互转工具，\n让您轻松在不同媒体格式间进行转换，\n保存生活中的精彩瞬间。"
+        // 配置应用描述 - 使用本地化字符串
+        descriptionLabel.text = "about_full_description".localized
         descriptionLabel.font = UIFont.systemFont(ofSize: 16)
         descriptionLabel.textColor = .darkGray
         descriptionLabel.textAlignment = .center
         descriptionLabel.numberOfLines = 0
         descriptionLabel.lineBreakMode = .byWordWrapping
         
-        // 配置功能亮点
-        featuresLabel.text = "✨ 视频转Live Photo\n✨ Live Photo转视频\n✨ 自定义Live Photo制作\n✨ 简洁直观的用户界面"
+        // 配置功能亮点 - 使用本地化字符串
+        featuresLabel.text = "about_features_list".localized
         featuresLabel.font = UIFont.systemFont(ofSize: 16)
         featuresLabel.textColor = .darkGray
         featuresLabel.textAlignment = .center
         featuresLabel.numberOfLines = 0
         featuresLabel.lineBreakMode = .byWordWrapping
         
-        // 配置版权信息
-        copyrightLabel.text = "© 2025 chenpeng\n保留所有权利"
+        // 配置版权信息 - 使用本地化字符串
+        copyrightLabel.text = String(format: "about_copyright".localized, "2025", "chenpeng")
         copyrightLabel.font = UIFont.systemFont(ofSize: 14)
         copyrightLabel.textColor = .lightGray
         copyrightLabel.textAlignment = .center
@@ -196,5 +196,28 @@ class AboutViewController: UIViewController {
         UIView.animate(withDuration: 0.4, delay: 0.3, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.5, animations: {
             self.appIconView.transform = .identity
         }, completion: nil)
+    }
+    
+    // 添加语言变化响应方法
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerForLanguageChanges()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unregisterForLanguageChanges()
+    }
+    
+    // 重写语言变化方法，更新UI
+    override func languageDidChange() {
+        self.title = "about_title".localized
+        
+        // 重新设置UI以更新本地化文本
+        setupUI()
+        
+        // 触发重新布局
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
     }
 }

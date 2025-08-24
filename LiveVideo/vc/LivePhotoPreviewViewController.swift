@@ -25,17 +25,33 @@ class LivePhotoPreviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 注册语言变化通知
+        registerForLanguageChanges()
+        
         // 设置视图背景色
         view.backgroundColor = .black
         
         // 设置标题
-        title = "Live Photo预览"
+        title = "live_photo_preview_title".localized()
         
         // 创建并配置LivePhotoView
         setupLivePhotoView()
         
         // 添加完成按钮
         setupNavigationItem()
+    }
+    
+    deinit {
+        // 取消注册语言变化通知
+        unregisterForLanguageChanges()
+    }
+    
+    // 重写语言变化方法
+    override func languageDidChange() {
+        super.languageDidChange()
+        
+        // 更新标题
+        title = "live_photo_preview_title".localized()
     }
     
     private func setupLivePhotoView() {

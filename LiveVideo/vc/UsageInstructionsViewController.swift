@@ -13,8 +13,8 @@ class UsageInstructionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 设置标题
-        self.title = "使用说明"
+        // 设置标题 - 使用本地化字符串
+        self.title = "usage_instructions_title".localized
         
         // 设置背景颜色，支持深色模式
         view.backgroundColor = UIColor {
@@ -46,7 +46,7 @@ class UsageInstructionsViewController: UIViewController {
         contentView.addSubview(appTitle)
         
         let appSubtitle = UILabel()
-        appSubtitle.text = "轻松实现视频与Live Photo之间的互相转换"
+        appSubtitle.text = "usage_app_subtitle".localized
         appSubtitle.font = UIFont.systemFont(ofSize: 16)
         appSubtitle.textColor = .secondaryLabel
         appSubtitle.textAlignment = .center
@@ -54,7 +54,7 @@ class UsageInstructionsViewController: UIViewController {
         contentView.addSubview(appSubtitle)
         
         // 创建功能说明部分
-        let featuresSection = createSection(title: "核心功能")
+        let featuresSection = createSection(title: "usage_features_section_title".localized)
         contentView.addSubview(featuresSection)
         
         // 创建功能项容器
@@ -62,144 +62,144 @@ class UsageInstructionsViewController: UIViewController {
         featuresSection.addSubview(featuresContainer)
         
         let feature1 = createFeatureItem(
-            title: "视频转Live Photo",
-            description: "将普通视频文件转换为可交互的Live Photo，让静态照片动起来。"
+            title: "home_video_to_live_photo".localized,
+            description: "usage_feature_video_to_live_desc".localized
         )
         featuresContainer.addSubview(feature1)
         
         let feature2 = createFeatureItem(
-            title: "Live Photo转视频",
-            description: "将iPhone拍摄的Live Photo转换回标准视频格式，便于分享和使用。"
+            title: "home_live_photo_to_video".localized,
+            description: "usage_feature_live_to_video_desc".localized
         )
         featuresContainer.addSubview(feature2)
         
         let feature3 = createFeatureItem(
-            title: "自定义Live Photo制作",
-            description: "选择一张图片和一段视频，将它们合成为独特的Live Photo效果。"
+            title: "home_custom_live_photo".localized,
+            description: "usage_feature_custom_live_desc".localized
         )
         featuresContainer.addSubview(feature3)
         
         // 创建使用步骤部分 - 视频转Live Photo
-        let videoToLiveSection = createSection(title: "视频转Live Photo步骤")
+        let videoToLiveSection = createSection(title: "usage_video_to_live_section_title".localized)
         contentView.addSubview(videoToLiveSection)
         
         let videoStep1 = createStepItem(
             number: "1",
-            title: "选择转换模式",
-            description: "在首页选择'视频转Live实况'模式。"
+            title: "usage_step_select_mode_title".localized,
+            description: "usage_video_step1_desc".localized
         )
         videoToLiveSection.addSubview(videoStep1)
         
         let videoStep2 = createStepItem(
             number: "2",
-            title: "选择视频",
-            description: "点击'选择视频文件'按钮，从相册中选择一个视频文件。"
+            title: "usage_step_select_file_title".localized,
+            description: "usage_video_step2_desc".localized
         )
         videoToLiveSection.addSubview(videoStep2)
         
         let videoStep3 = createStepItem(
             number: "3",
-            title: "等待转换",
-            description: "系统会自动处理视频并生成Live Photo，转换过程中显示进度。"
+            title: "usage_step_wait_conversion_title".localized,
+            description: "usage_video_step3_desc".localized
         )
         videoToLiveSection.addSubview(videoStep3)
         
         let videoStep4 = createStepItem(
             number: "4",
-            title: "查看结果",
-            description: "转换完成后，Live Photo将显示在下方列表中，并自动保存到相册。"
+            title: "usage_step_view_result_title".localized,
+            description: "usage_video_step4_desc".localized
         )
         videoToLiveSection.addSubview(videoStep4)
         
         // 创建使用步骤部分 - Live Photo转视频
-        let liveToVideoSection = createSection(title: "Live Photo转视频步骤")
+        let liveToVideoSection = createSection(title: "usage_live_to_video_section_title".localized)
         contentView.addSubview(liveToVideoSection)
         
         let liveStep1 = createStepItem(
             number: "1",
-            title: "选择转换模式",
-            description: "在首页点击'Live实况转视频'切换模式。"
+            title: "usage_step_select_mode_title".localized,
+            description: "usage_live_step1_desc".localized
         )
         liveToVideoSection.addSubview(liveStep1)
         
         let liveStep2 = createStepItem(
             number: "2",
-            title: "选择Live Photo",
-            description: "点击'选择Live Photo'按钮，从相册中选择一个Live Photo。"
+            title: "usage_step_select_live_photo_title".localized,
+            description: "usage_live_step2_desc".localized
         )
         liveToVideoSection.addSubview(liveStep2)
         
         let liveStep3 = createStepItem(
             number: "3",
-            title: "等待转换",
-            description: "系统会自动提取Live Photo中的视频部分并进行处理。"
+            title: "usage_step_wait_conversion_title".localized,
+            description: "usage_live_step3_desc".localized
         )
         liveToVideoSection.addSubview(liveStep3)
         
         let liveStep4 = createStepItem(
             number: "4",
-            title: "查看结果",
-            description: "转换完成后，视频将显示在下方列表中，并自动保存到相册。"
+            title: "usage_step_view_result_title".localized,
+            description: "usage_live_step4_desc".localized
         )
         liveToVideoSection.addSubview(liveStep4)
         
         // 创建使用步骤部分 - 自定义Live Photo
-        let customLiveSection = createSection(title: "自定义Live Photo步骤")
+        let customLiveSection = createSection(title: "usage_custom_live_section_title".localized)
         contentView.addSubview(customLiveSection)
         
         let customStep1 = createStepItem(
             number: "1",
-            title: "进入自定义界面",
-            description: "从底部导航栏选择'定制'功能进入自定义Live Photo制作界面。"
+            title: "usage_custom_step1_title".localized,
+            description: "usage_custom_step1_desc".localized
         )
         customLiveSection.addSubview(customStep1)
         
         let customStep2 = createStepItem(
             number: "2",
-            title: "选择图片和视频",
-            description: "分别点击'选择图片'和'选择视频'按钮，从相册中选择素材。"
+            title: "usage_custom_step2_title".localized,
+            description: "usage_custom_step2_desc".localized
         )
         customLiveSection.addSubview(customStep2)
         
         let customStep3 = createStepItem(
             number: "3",
-            title: "开始转换",
-            description: "确认素材选择后，点击'开始转换'按钮开始生成自定义Live Photo。"
+            title: "usage_custom_step3_title".localized,
+            description: "usage_custom_step3_desc".localized
         )
         customLiveSection.addSubview(customStep3)
         
         let customStep4 = createStepItem(
             number: "4",
-            title: "预览与保存",
-            description: "转换完成后可直接预览效果，系统会自动将结果保存到相册中。"
+            title: "usage_custom_step4_title".localized,
+            description: "usage_custom_step4_desc".localized
         )
         customLiveSection.addSubview(customStep4)
         
         // 创建预览和历史记录部分
-        let previewSection = createSection(title: "预览与历史记录")
+        let previewSection = createSection(title: "usage_preview_section_title".localized)
         contentView.addSubview(previewSection)
         
-        let previewContent = createTextItem(text: "在首页的转换结果列表中，点击任意项目可以预览转换效果：\n- 对于Live Photo，点击可以播放/暂停动态效果\n- 对于视频，点击可以播放完整视频\n\n所有转换结果都会自动保存到系统相册中，您可以随时查看和使用。")
+        let previewContent = createTextItem(text: "usage_preview_content".localized)
         previewSection.addSubview(previewContent)
         
         // 创建注意事项部分
-        let notesSection = createSection(title: "注意事项")
+        let notesSection = createSection(title: "usage_notes_section_title".localized)
         contentView.addSubview(notesSection)
         
         // 创建注意事项容器
         let notesContainer = UIView()
         notesSection.addSubview(notesContainer)
         
-        let note1 = createNoteItem(text: "请确保应用已获得相册访问权限，否则无法选择和保存媒体文件。")
+        let note1 = createNoteItem(text: "usage_note_permission".localized)
         notesContainer.addSubview(note1)
         
-        let note2 = createNoteItem(text: "转换过程可能需要一定时间，取决于您的设备性能和媒体文件大小。")
+        let note2 = createNoteItem(text: "usage_note_conversion_time".localized)
         notesContainer.addSubview(note2)
         
-        let note3 = createNoteItem(text: "建议使用较短的视频（最好不超过3秒）以获得最佳的Live Photo效果。")
+        let note3 = createNoteItem(text: "usage_note_video_length".localized)
         notesContainer.addSubview(note3)
         
-        let note4 = createNoteItem(text: "如有任何问题或建议，请在'关于'页面联系开发者。")
+        let note4 = createNoteItem(text: "usage_note_keep_app_active".localized)
         notesContainer.addSubview(note4)
         
         // 设置约束
@@ -575,5 +575,22 @@ class UsageInstructionsViewController: UIViewController {
         }
         
         return item
+    }
+    
+    // 添加语言变化响应方法
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerForLanguageChanges()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unregisterForLanguageChanges()
+    }
+    
+    // 重写语言变化方法，更新UI
+    override func languageDidChange() {
+        // 重新加载视图以更新所有本地化文本
+        self.viewDidLoad()
     }
 }

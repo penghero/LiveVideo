@@ -22,11 +22,11 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
         var title: String {
             switch self {
-            case .appearance: return "外观"
-            case .language: return "语言"
-            case .information: return "信息"
-            case .storage: return "存储"
-            case .history: return "历史记录"
+            case .appearance: return "settings_section_appearance".localized
+            case .language: return "settings_section_language".localized
+            case .information: return "settings_section_information".localized
+            case .storage: return "settings_section_storage".localized
+            case .history: return "settings_section_history".localized
             }
         }
     }
@@ -42,13 +42,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
         var title: String {
             switch self {
-            case .darkMode: return "深色模式"
-            case .language: return "语言设置"
-            case .about: return "关于我们"
-            case .usageInstructions: return "使用说明"
-            case .clearCache: return "清除缓存"
-            case .history: return "历史记录"
-            case .donate: return "打赏支持"  // 添加打赏标题
+            case .darkMode: return "settings_item_dark_mode".localized
+            case .language: return "settings_item_language".localized
+            case .about: return "settings_item_about".localized
+            case .usageInstructions: return "settings_item_usage_instructions".localized
+            case .clearCache: return "settings_item_clear_cache".localized
+            case .history: return "settings_item_history".localized
+            case .donate: return "settings_item_donate".localized  // 添加打赏标题
             }
         }
         
@@ -88,7 +88,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         
         // 设置标题
-        self.title = "设置"
+        self.title = "settings_title".localized
         
         // 设置背景颜色
         view.backgroundColor = .systemGroupedBackground
@@ -100,6 +100,23 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        // 注册语言变化通知
+        registerForLanguageChanges()
+    }
+    
+    deinit {
+        // 取消注册语言变化通知
+        unregisterForLanguageChanges()
+    }
+    
+    // 当语言变化时调用
+    override func languageDidChange() {
+        // 更新标题
+        self.title = "settings_title".localized
+        
+        // 重新加载表格数据以更新本地化文本
+        tableView.reloadData()
     }
     
     // MARK: - UITableViewDataSource
@@ -194,26 +211,28 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             let window = UIApplication.shared.windows.first
             window?.overrideUserInterfaceStyle = sender.isOn ? .dark : .light
         } else {
-            showToast("您的系统版本不支持深色模式")
+            showToast("settings_dark_mode_not_supported".localized)
             sender.isOn = false
         }
     }
     
     // 显示语言选项
     func showLanguageOptions() {
-        let alertController = UIAlertController(title: "选择语言", message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "settings_language_select_title".localized, message: nil, preferredStyle: .actionSheet)
         
-        alertController.addAction(UIAlertAction(title: "简体中文", style: .default) { _ in
+        alertController.addAction(UIAlertAction(title: "settings_language_chinese".localized, style: .default) { _ in
             self.saveLanguagePreference("zh-Hans")
-            self.showToast("语言设置将在下次启动时生效")
+            LocalizableManager.shared.changeLanguage(to: "zh-Hans")
+            self.showToast("settings_language_change_restart".localized)
         })
         
-        alertController.addAction(UIAlertAction(title: "English", style: .default) { _ in
+        alertController.addAction(UIAlertAction(title: "settings_language_english".localized, style: .default) { _ in
             self.saveLanguagePreference("en")
-            self.showToast("Language will take effect on next launch")
+            LocalizableManager.shared.changeLanguage(to: "en")
+            self.showToast("settings_language_change_restart_en".localized)
         })
         
-        alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
         
         present(alertController, animated: true, completion: nil)
     }
@@ -226,9 +245,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // 清除缓存
     func clearCache() {
-        let alertController = UIAlertController(title: "清除缓存", message: "确定要清除所有缓存数据吗？", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "settings_clear_cache_title".localized, message: "settings_clear_cache_message".localized, preferredStyle: .alert)
         
-        alertController.addAction(UIAlertAction(title: "确定", style: .destructive) { _ in
+        alertController.addAction(UIAlertAction(title: "ok".localized, style: .destructive) { _ in
             // 清除临时文件
             let fileManager = FileManager.default
             let tempDir = NSTemporaryDirectory()
@@ -239,29 +258,29 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                     let fileURL = URL(fileURLWithPath: tempDir).appendingPathComponent(file)
                     try fileManager.removeItem(at: fileURL)
                 }
-                self.showToast("缓存清除成功",)
+                self.showToast("settings_cache_cleared_success".localized)
             } catch {
-                self.showToast("缓存清除失败：\(error.localizedDescription)")
+                self.showToast("settings_cache_cleared_failed".localized + error.localizedDescription)
             }
         })
         
-        alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
         
         present(alertController, animated: true, completion: nil)
     }
     
     // 清除历史记录
     @objc func clearHistory() {
-        let alertController = UIAlertController(title: "清除历史记录", message: "确定要清除所有转换历史吗？", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "history_clear_confirm_title".localized, message: "history_clear_confirm_message".localized, preferredStyle: .alert)
         
-        alertController.addAction(UIAlertAction(title: "确定", style: .destructive) { _ in
+        alertController.addAction(UIAlertAction(title: "ok".localized, style: .destructive) { _ in
             // 清除历史记录逻辑
             // 这里可以根据实际存储方式清除历史数据
-            self.showToast("历史记录已清除")
+            self.showToast("history_record_cleared".localized)
             self.navigationController?.popViewController(animated: true)
         })
         
-        alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
         
         present(alertController, animated: true, completion: nil)
     }

@@ -37,7 +37,7 @@ class SplashViewController: UIViewController {
     // 应用名称标签
     private lazy var appNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "LiveVideo"
+        label.text = "app_name".localized()
         label.font = UIFont.boldSystemFont(ofSize: 32)
         label.textColor = UIColor(hexString: "067425")
         label.alpha = 0.0
@@ -47,7 +47,7 @@ class SplashViewController: UIViewController {
     // 应用标语标签
     private lazy var sloganLabel: UILabel = {
         let label = UILabel()
-        label.text = "视频与Live实况互转"
+        label.text = "app_splash_slogan".localized()
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = UIColor.gray
         label.alpha = 0.0
@@ -56,6 +56,9 @@ class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 注册语言变化通知
+        registerForLanguageChanges()
         
         // 设置背景色 - 与应用主题一致
         view.backgroundColor = UIColor { (traitCollection) -> UIColor in
@@ -69,6 +72,20 @@ class SplashViewController: UIViewController {
         
         // 添加约束
         setupConstraints()
+    }
+    
+    deinit {
+        // 取消注册语言变化通知
+        unregisterForLanguageChanges()
+    }
+    
+    // 重写语言变化方法
+    override func languageDidChange() {
+        super.languageDidChange()
+        
+        // 更新UI元素文本
+        appNameLabel.text = "app_name".localized()
+        sloganLabel.text = "app_splash_slogan".localized()
     }
     
     override func viewDidAppear(_ animated: Bool) {
