@@ -57,11 +57,15 @@
 		};
 		FFD85EAE2D62CD9800773449 /* LiveVideoTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = LiveVideoTests;
 			sourceTree = "<group>";
 		};
 		FFD85EB82D62CD9800773449 /* LiveVideoUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = LiveVideoUITests;
 			sourceTree = "<group>";
 		};
@@ -277,13 +281,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LiveVideo/Pods-LiveVideo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LiveVideo/Pods-LiveVideo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

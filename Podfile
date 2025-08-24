@@ -19,9 +19,8 @@ source 'https://github.com/CocoaPods/Specs.git'
   
   pod 'HXPhotoPicker'
   
-  pod 'RxSwift'
   pod 'RxCocoa'
-  # 避免每个界面都定义disposeBag
+#  # 避免每个界面都定义disposeBag
   pod 'NSObject+Rx'
   
   # cell复用
