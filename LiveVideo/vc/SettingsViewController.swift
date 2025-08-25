@@ -217,8 +217,35 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     // 显示语言选项
+    // 显示语言选项
     func showLanguageOptions() {
         let alertController = UIAlertController(title: "settings_language_select_title".localized, message: nil, preferredStyle: .actionSheet)
+        
+        // 为iPad配置popoverPresentationController
+        if let popoverController = alertController.popoverPresentationController {
+            // 获取语言设置项所在的表格行位置作为弹窗显示位置
+            // 查找语言设置项的indexPath
+            var languageIndexPath: IndexPath?
+            for (sectionIndex, section) in settingData.enumerated() {
+                if let itemIndex = section.items.firstIndex(where: { $0 == .language }) {
+                    languageIndexPath = IndexPath(row: itemIndex, section: sectionIndex)
+                    break
+                }
+            }
+            
+            if let indexPath = languageIndexPath, let cell = tableView.cellForRow(at: indexPath) {
+                // 设置弹窗的源视图和位置
+                popoverController.sourceView = cell
+                popoverController.sourceRect = cell.bounds
+            } else {
+                // 如果找不到对应的单元格，使用表格视图作为源视图
+                popoverController.sourceView = tableView
+                popoverController.sourceRect = CGRect(x: tableView.bounds.midX, y: tableView.bounds.midY, width: 0, height: 0)
+            }
+            
+            // 设置弹窗的箭头方向
+            popoverController.permittedArrowDirections = .any
+        }
         
         alertController.addAction(UIAlertAction(title: "settings_language_chinese".localized, style: .default) { _ in
             self.saveLanguagePreference("zh-Hans")

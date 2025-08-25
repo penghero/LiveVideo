@@ -289,11 +289,24 @@ class CustomLivePhotoViewController: UIViewController {
            showAlert(message: "custom_live_photo_no_live_photo_to_share".localized)
            return
        }
-
+    
        // 创建分享内容
        let activityItems = [livePhoto]
        let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-
+       
+       // 为iPad设置popoverPresentationController的位置信息
+       if let popoverPresentationController = activityViewController.popoverPresentationController {
+           // 尝试使用分享按钮作为源视图
+           if let shareButton = navigationItem.rightBarButtonItems?.last {
+               popoverPresentationController.barButtonItem = shareButton
+           } else {
+               // 如果找不到分享按钮，则使用转换按钮作为源视图
+               popoverPresentationController.sourceView = convertButton
+               popoverPresentationController.sourceRect = convertButton.bounds
+           }
+           popoverPresentationController.permittedArrowDirections = .any
+       }
+    
        // 显示分享控制器
        present(activityViewController, animated: true, completion: nil)
     }
