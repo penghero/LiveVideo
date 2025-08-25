@@ -35,7 +35,7 @@ class AboutViewController: UIViewController {
         super.viewDidLoad()
         
         // 设置标题 - 使用本地化字符串
-        self.title = "about_title".localized
+//        self.title = "about_title".localized
         
         // 设置背景颜色
         view.backgroundColor = .white

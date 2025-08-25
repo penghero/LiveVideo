@@ -88,7 +88,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         
         // 设置标题
-        self.title = "settings_title".localized
+//        self.title = "settings_title".localized
         
         // 设置背景颜色
         view.backgroundColor = .systemGroupedBackground

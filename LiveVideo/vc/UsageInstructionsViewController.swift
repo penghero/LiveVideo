@@ -14,7 +14,7 @@ class UsageInstructionsViewController: UIViewController {
         super.viewDidLoad()
         
         // 设置标题 - 使用本地化字符串
-        self.title = "usage_instructions_title".localized
+//        self.title = "usage_instructions_title".localized
         
         // 设置背景颜色，支持深色模式
         view.backgroundColor = UIColor {
@@ -40,7 +40,7 @@ class UsageInstructionsViewController: UIViewController {
         contentView.addSubview(appIcon)
         
         let appTitle = UILabel()
-        appTitle.text = "Live Video Converter"
+        appTitle.text = "app_name".localized
         appTitle.font = UIFont.boldSystemFont(ofSize: 24)
         appTitle.textColor = .label
         contentView.addSubview(appTitle)

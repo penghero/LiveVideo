@@ -6,7 +6,7 @@
   
 */
 
-"CFBundleDisplayName" = "茄子视频转Live实况";
-"CFBundleName" = "茄子视频转Live实况";
+"CFBundleDisplayName" = "茄子视频&Live Photo转换器";
+"CFBundleName" = "茄子视频&Live Photo转换器";
 "NSPhotoLibraryAddUsageDescription" = "app需要访问您的多媒体以选择图片或者视频?";
 "NSPhotoLibraryUsageDescription"="app需要访问您的相册以选择图片或者视频?";

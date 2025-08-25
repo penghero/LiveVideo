@@ -8,8 +8,8 @@
 */
 
 // Common strings
-"app_name" = "LiveVideo";
-"app_subtitle" = "Video & Live Photo Converter";
+"app_name" = "Video&Live Photo Converter";
+"app_subtitle" = "Video & Live Photo Converter \nDynamic Wallpaper Maker Pro";
 "app_splash_slogan" = "Video & Live Photo Conversion";
 "ok" = "OK";
 "cancel" = "Cancel";
@@ -77,6 +77,7 @@
 "usage_notes_section_title" = "Notes";
 "usage_preview_section_title" = "Preview & History";
 "usage_video_to_live_section_title" = "Video to Live Photo Steps";
+"usage_live_to_video_section_title" = "Live Photo to Video Steps";
 "usage_custom_live_section_title" = "Custom Live Photo Steps";
 "usage_instructions_title" = "Usage Instructions";
 "usage_app_subtitle" = "Easily convert between video and Live Photo";
@@ -250,3 +251,5 @@
 
 // Live Photo Preview page
 "live_photo_preview_title" = "Live Photo Preview";
+"share" = "Share";
+"custom_live_photo_no_live_photo_to_share" = "No Live Photo to share, please convert first";

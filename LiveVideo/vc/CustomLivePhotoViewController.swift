@@ -91,7 +91,7 @@ class CustomLivePhotoViewController: UIViewController {
         button.addTarget(self, action: #selector(startConvertAction), for: .touchUpInside)
         return button
     }()
-    
+        
     // 图片预览视图
     private lazy var imagePreviewContainer: UIView = {
         let view = UIView()
@@ -210,7 +210,11 @@ class CustomLivePhotoViewController: UIViewController {
         // 添加右侧导航重置按钮
         let resetButton = UIBarButtonItem(title: "custom_live_photo_reset".localized, style: .plain, target: self, action: #selector(resetPage))
         resetButton.tintColor = UIColor(hexString: "067425")
-        self.navigationItem.rightBarButtonItem = resetButton
+        
+        // 初始化分享按钮
+        let shareBtn = UIBarButtonItem(title: "share".localized, style: .plain, target: self, action: #selector(shareLivePhotoAction))
+        shareBtn.tintColor = UIColor(hexString: "067425")
+        self.navigationItem.rightBarButtonItems = [resetButton,shareBtn]
         
         // 设置动态颜色支持深色模式
         view.backgroundColor = UIColor { (traitCollection) -> UIColor in
@@ -277,6 +281,21 @@ class CustomLivePhotoViewController: UIViewController {
         
         // 显示重置成功提示
         view.makeToast("custom_live_photo_reset_success".localized, duration: 1.5, position: .center)
+    }
+    
+    // 分享LivePhoto按钮点击事件
+    @objc private func shareLivePhotoAction() {
+       guard let livePhoto = generatedLivePhoto else {
+           showAlert(message: "custom_live_photo_no_live_photo_to_share".localized)
+           return
+       }
+
+       // 创建分享内容
+       let activityItems = [livePhoto]
+       let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+
+       // 显示分享控制器
+       present(activityViewController, animated: true, completion: nil)
     }
     
     // 设置子视图

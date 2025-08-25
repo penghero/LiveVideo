@@ -6,7 +6,7 @@
   
 */
 
-"CFBundleDisplayName" = "Video To Live";
-"CFBundleName" = "Video To Live";
+"CFBundleDisplayName" = "Video&Live Photo Converter";
+"CFBundleName" = "Video&Live Photo Converter";
 "NSPhotoLibraryAddUsageDescription" = "The app needs to access your multimedia to select images or videos?";
 "NSPhotoLibraryUsageDescription"="The app needs to access your photo album to select pictures or videos?";

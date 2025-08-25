@@ -115,7 +115,7 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
         super.viewDidLoad()
         
         // 设置标题 - 使用本地化字符串
-        self.title = "donate_title".localized
+//        self.title = "donate_title".localized
         
         // 配置视图
         setupUI()
@@ -498,16 +498,25 @@ class DonateViewController: UIViewController, SKProductsRequestDelegate, SKPayme
     
     // 根据金额获取产品
     private func getProductForAmount(_ amount: Double) -> SKProduct? {
-        // 这里简单匹配金额，实际项目中应该根据产品ID精确匹配
-        let targetPrice = NSDecimalNumber(value: amount)
+        // 不再直接比较金额，而是根据金额找到对应的产品ID，然后从productMap中获取产品
+        var productId: String?
         
-        for product in products {
-            if product.price == targetPrice {
-                return product
-            }
+        // 根据金额确定对应的产品ID
+        switch amount {
+        case 1.0:
+            productId = "pgg.com.VideoToLove.1"
+        case 5.0:
+            productId = "pgg.com.VideoToLove.5"
+        case 10.0:
+            productId = "pgg.com.VideoToLove.10"
+        case 99.0:
+            productId = "pgg.com.VideoToLove.99"
+        default:
+            return nil
         }
         
-        return nil
+        // 从productMap中获取产品
+        return productMap[productId!]
     }
     
     // 显示加载指示器
