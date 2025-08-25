@@ -10,3 +10,5 @@
 "CFBundleName" = "Video&Live Photo Converter";
 "NSPhotoLibraryAddUsageDescription" = "The app needs to access your multimedia to select images or videos?";
 "NSPhotoLibraryUsageDescription"="The app needs to access your photo album to select pictures or videos?";
+"NSLocationWhenInUseUsageDescription"="The app needs to access your location to obtain location information when taking photos";
+"NSCameraUsageDescription"="The app needs to access your camera to take photos";
